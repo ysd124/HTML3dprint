@@ -45,16 +45,16 @@
   --f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 
   /* Schriftgrößen (Bühne 1600×900) */
-  --fs-h1:94px;
-  --fs-h2:44px;
-  --fs-lead:21px;
-  --fs-body:16.5px;
-  --fs-sm:14px;
-  --fs-mono:11.5px;
+  --fs-h1:96px;
+  --fs-h2:54px;
+  --fs-lead:26px;
+  --fs-body:23px;
+  --fs-sm:19px;
+  --fs-mono:15px;
 
   /* Abstände */
   --s1:8px; --s2:14px; --s3:22px; --s4:34px; --s5:52px;
-  --pad-x:84px; --pad-y:64px;
+  --pad-x:80px; --pad-y:56px;
 
   /* Zeiten */
   --t-fast:.22s; --t-mid:.38s; --t-slow:.8s;
@@ -120,60 +120,60 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .slide--hero{padding:0}
 
 /* ---------- 4. Komponenten ---------- */
-.head{flex:0 0 auto;margin-bottom:var(--s4)}
+.head{flex:0 0 auto;margin-bottom:30px}
 .kicker{
   display:flex;align-items:center;gap:10px;
   font-family:var(--f-mono);font-size:var(--fs-mono);letter-spacing:.18em;
-  text-transform:uppercase;color:var(--ink-3);margin-bottom:12px;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:14px;
 }
 .kicker b{color:var(--accent);font-weight:500}
-.kicker i{display:block;width:26px;height:1px;background:var(--line-2);font-style:normal}
+.kicker i{display:block;width:32px;height:1px;background:var(--line-2);font-style:normal}
 .title{font-size:var(--fs-h2);font-weight:500;letter-spacing:-.018em;line-height:1.06}
 .title em{font-style:normal;color:var(--tech)}
-.rule{position:relative;height:1px;background:var(--line);margin-top:20px}
-.rule::before{content:"";position:absolute;left:0;top:0;width:64px;height:1px;background:var(--accent)}
+.rule{position:relative;height:1px;background:var(--line);margin-top:18px}
+.rule::before{content:"";position:absolute;left:0;top:0;width:76px;height:2px;background:var(--accent)}
 
-.lead{font-size:var(--fs-lead);line-height:1.5;color:var(--ink-2);font-weight:300;max-width:62ch}
+.lead{font-size:var(--fs-lead);line-height:1.45;color:var(--ink-2);font-weight:300;max-width:56ch}
 .lead strong{color:var(--ink);font-weight:500}
 
 .body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center}
 
 /* Stichpunkte */
-.pts{display:flex;flex-direction:column;gap:13px}
-.pts li{position:relative;padding-left:22px;font-size:var(--fs-body);line-height:1.45;color:var(--ink-2)}
-.pts li::before{content:"";position:absolute;left:0;top:.6em;width:11px;height:2px;background:var(--accent)}
+.pts{display:flex;flex-direction:column;gap:17px}
+.pts li{position:relative;padding-left:30px;font-size:var(--fs-body);line-height:1.4;color:var(--ink-2)}
+.pts li::before{content:"";position:absolute;left:0;top:.62em;width:16px;height:2px;background:var(--accent)}
 .pts li strong{color:var(--ink);font-weight:500}
 .pts--tech li::before{background:var(--tech)}
 
 /* Spalten (ohne Karten – nur feine Trennlinien) */
-.cols{display:grid;gap:26px}
+.cols{display:grid;gap:24px}
 .cols--5{grid-template-columns:repeat(5,1fr)}
 .cols--3{grid-template-columns:repeat(3,1fr);gap:44px}
-.col{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:10px}
+.col{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:11px}
 .col--acc{border-top-color:var(--accent)}
 .col__no{font-family:var(--f-mono);font-size:var(--fs-mono);color:var(--ink-4);letter-spacing:.12em}
-.col__h{font-size:19px;font-weight:500;color:var(--ink);letter-spacing:-.01em}
-.col__t{font-size:var(--fs-sm);line-height:1.5;color:var(--ink-3)}
-.mini{display:flex;flex-direction:column;gap:6px;margin-top:2px}
-.mini li{position:relative;padding-left:14px;font-size:var(--fs-sm);color:var(--ink-2);line-height:1.4}
-.mini li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:1px;background:var(--ink-4)}
+.col__h{font-size:27px;font-weight:500;color:var(--ink);letter-spacing:-.015em;line-height:1.15}
+.col__t{font-size:var(--fs-sm);line-height:1.45;color:var(--ink-3)}
+.mini{display:flex;flex-direction:column;gap:9px;margin-top:2px}
+.mini li{position:relative;padding-left:19px;font-size:var(--fs-sm);color:var(--ink-2);line-height:1.35}
+.mini li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:1px;background:var(--ink-4)}
 
 /* Faktenzeile / Quellen */
 .fact{
-  display:inline-flex;align-items:baseline;gap:14px;
-  border-left:2px solid var(--tech);padding:7px 0 7px 14px;
+  display:inline-flex;align-items:baseline;gap:18px;
+  border-left:3px solid var(--tech);padding:8px 0 8px 18px;
   font-family:var(--f-mono);font-size:var(--fs-mono);color:var(--ink-2);letter-spacing:.03em;
 }
 .fact b{color:var(--tech);font-weight:500}
-.src{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-4);letter-spacing:.04em}
+.src{font-family:var(--f-mono);font-size:14px;color:var(--ink-4);letter-spacing:.03em;line-height:1.4}
 .chip{
-  display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;
+  display:inline-block;font-family:var(--f-mono);font-size:14px;letter-spacing:.06em;
   text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line-2);
-  padding:4px 8px;border-radius:2px;
+  padding:6px 11px;border-radius:2px;
 }
 .chip--a{color:var(--accent);border-color:rgba(255,106,43,.4)}
 .chip--t{color:var(--tech);border-color:rgba(87,194,214,.35)}
-.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
 
 /* Ablauf-/Prozessreihe */
 .flow{display:flex;align-items:center;justify-content:center;gap:0}
@@ -182,11 +182,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .flow__arw{flex:0 0 auto;color:var(--ink-4);margin:0 6px;align-self:center}
 
 /* Eigenschaftsbalken (Materialien) */
-.bars{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.bars{display:flex;flex-direction:column;gap:10px;margin-top:6px}
 .bar{display:flex;align-items:center;gap:8px}
-.bar__l{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;color:var(--ink-4);width:74px;text-transform:uppercase}
+.bar__l{font-family:var(--f-mono);font-size:13px;letter-spacing:.05em;color:var(--ink-4);width:96px;text-transform:uppercase}
 .bar__t{display:flex;gap:3px}
-.bar__t i{display:block;width:13px;height:4px;background:var(--line-2);border-radius:1px}
+.bar__t i{display:block;width:17px;height:5px;background:var(--line-2);border-radius:1px}
 .bar__t i.on{background:var(--accent)}
 
 /* ---------- 5. Grafik-/SVG-Stile ---------- */
@@ -202,39 +202,38 @@ svg{display:block;overflow:visible}
 .f-d{fill:var(--ink-4)}
 .f-el{fill:var(--bg-el2)}
 .f-el2{fill:var(--bg-el)}
-.lbl{font-family:var(--f-mono);font-size:10px;fill:var(--ink-4);letter-spacing:.06em}
+.lbl{font-family:var(--f-mono);font-size:13px;fill:var(--ink-4);letter-spacing:.05em}
 .lbl-t{fill:var(--tech)}
 .lbl-a{fill:var(--accent)}
-.lbl-b{fill:var(--ink-2);font-size:11px}
+.lbl-b{fill:var(--ink-2);font-size:14px}
 .ico{width:38px;height:38px}
-.rnum{font-family:var(--f-mono);font-size:15px;fill:var(--accent);letter-spacing:.08em}
-.rail__h{font-size:21px}
-.rail__t{font-size:15px}
-.mat .ico{width:52px;height:52px}
-.mat__name{font-size:24px}
+.rnum{font-family:var(--f-mono);font-size:19px;fill:var(--accent);letter-spacing:.06em}
+.mat .ico{width:58px;height:58px}
+.mat .mini{min-height:96px}
 .bars{gap:9px}
 .bar__t i{width:16px;height:5px}
-.schem .lbl{font-size:5.6px}
+.schem .lbl{font-size:7.4px}
+.fig-w .lbl{font-size:17px}
 .cols--5 .ico{width:58px;height:58px;margin-bottom:2px}
 
 /* ---------- 6. Folienspezifisches Layout ---------- */
 /* Folie 1 – Titel */
-.hero{display:grid;grid-template-columns:580px 1fr;height:100%;align-items:center}
+.hero{display:grid;grid-template-columns:640px 1fr;height:100%;align-items:center}
 .hero__txt{padding:0 0 0 var(--pad-x);position:relative;z-index:2}
-.hero__pre{font-family:var(--f-mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:26px}
+.hero__pre{font-family:var(--f-mono);font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:26px}
 .hero h1{font-size:var(--fs-h1);font-weight:600;letter-spacing:-.045em;line-height:.94;white-space:nowrap}
 .hero h1 span{display:block;color:var(--ink)}
-.hero__sub{margin-top:22px;font-size:24px;font-weight:300;color:var(--ink-2);letter-spacing:-.01em}
-.hero__rule{width:120px;height:1px;background:var(--accent);margin:32px 0}
+.hero__sub{margin-top:22px;font-size:30px;font-weight:300;color:var(--ink-2);letter-spacing:-.01em;line-height:1.3}
+.hero__rule{width:132px;height:2px;background:var(--accent);margin:30px 0}
 /* Schriftfeld wie in einer technischen Zeichnung */
-.titleblock{display:grid;grid-template-columns:repeat(2,minmax(0,168px));border:1px solid var(--line);width:max-content}
-.titleblock div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:9px 12px}
+.titleblock{display:grid;grid-template-columns:repeat(2,minmax(0,200px));border:1px solid var(--line);width:max-content}
+.titleblock div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 14px}
 .titleblock div:nth-child(2n){border-right:0}
 .titleblock div:nth-last-child(-n+2){border-bottom:0}
-.titleblock dt{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
-.titleblock dd{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);margin:0}
+.titleblock dt{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:4px}
+.titleblock dd{font-family:var(--f-mono);font-size:16px;color:var(--ink-2);margin:0}
 .hero__scene{position:relative;height:100%;display:flex;align-items:center;justify-content:center}
-.hero__scene svg{width:100%;max-width:900px}
+.hero__scene svg{width:100%;max-width:860px}
 
 /* Folie 3 / 9 – volle Breite */
 .wide{width:100%}
@@ -242,7 +241,7 @@ svg{display:block;overflow:visible}
 .split--l{grid-template-columns:460px 1fr}
 .split--r{grid-template-columns:1fr 520px}
 .stack{display:flex;flex-direction:column;gap:var(--s3)}
-.stack--lg{gap:var(--s4)}
+.stack--lg{gap:30px}
 
 /* Folie 4/5 – drei Vorteile/Nachteile mit Mini-Grafik */
 .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;align-items:start}
@@ -251,15 +250,15 @@ svg{display:block;overflow:visible}
 /* Folie 9 – Materialien */
 .mat{display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
 .mat__top{display:flex;align-items:center;gap:12px}
-.mat__name{font-size:22px;font-weight:600;letter-spacing:.01em}
-.mat__temp{font-family:var(--f-mono);font-size:11px;color:var(--accent);letter-spacing:.05em}
+.mat__name{font-size:30px;font-weight:600;letter-spacing:.01em}
+.mat__temp{font-family:var(--f-mono);font-size:16px;color:var(--accent);letter-spacing:.04em}
 
 /* Folie 10 – Ablauf */
 .rail{width:100%}
-.rail__labels{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:6px}
-.rail__no{font-family:var(--f-mono);font-size:13px;color:var(--accent);letter-spacing:.14em;margin-bottom:6px}
-.rail__h{font-size:19px;font-weight:500;margin-bottom:6px}
-.rail__t{font-size:var(--fs-sm);color:var(--ink-3);line-height:1.45}
+.rail__labels{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:8px}
+.rail__no{font-family:var(--f-mono);font-size:17px;color:var(--accent);letter-spacing:.12em;margin-bottom:6px}
+.rail__h{font-size:26px;font-weight:500;margin-bottom:9px;letter-spacing:-.01em}
+.rail__t{font-size:var(--fs-sm);color:var(--ink-3);line-height:1.4}
 
 /* Folie 12 – Praxisbeispiel */
 .chain{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:start}
@@ -268,17 +267,17 @@ svg{display:block;overflow:visible}
   content:"";position:absolute;right:-9px;top:44px;width:12px;height:1px;background:var(--line-2);
 }
 .chain__step:last-child::after{display:none}
-.chain__no{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;color:var(--ink-4)}
-.chain__h{font-size:14.5px;font-weight:500;color:var(--ink);line-height:1.3}
+.chain__no{font-family:var(--f-mono);font-size:14px;letter-spacing:.12em;color:var(--ink-4)}
+.chain__h{font-size:19px;font-weight:500;color:var(--ink);line-height:1.25}
 .specs{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);margin-top:6px}
 .specs div{padding:16px 18px 0 0}
-.specs dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
-.specs dd{margin:0;font-family:var(--f-mono);font-size:15px;color:var(--ink)}
+.specs dt{font-family:var(--f-mono);font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:8px}
+.specs dd{margin:0;font-family:var(--f-mono);font-size:22px;color:var(--ink)}
 .specs dd b{color:var(--accent);font-weight:500}
 
 /* Folie 13 – Fazit */
 .outro{display:grid;grid-template-columns:1fr 500px;gap:56px;align-items:center;width:100%}
-.outro__quote{font-size:26px;font-weight:300;color:var(--ink);letter-spacing:-.01em;line-height:1.35}
+.outro__quote{font-size:34px;font-weight:300;color:var(--ink);letter-spacing:-.015em;line-height:1.3}
 .outro__quote span{color:var(--accent)}
 
 /* ---------- 7. Animationen ---------- */
@@ -324,15 +323,15 @@ svg{display:block;overflow:visible}
 .progress__ticks i:last-child{border-right:0}
 
 .nav{
-  flex:0 0 auto;height:62px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  flex:0 0 auto;height:68px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
   padding:0 26px;border-top:1px solid var(--line);background:var(--bg);gap:16px;z-index:50;
 }
 .nav__l{display:flex;align-items:center;gap:10px}
 .nav__r{display:flex;align-items:center;justify-content:flex-end;gap:10px}
 .nav__btn{
   display:inline-flex;align-items:center;gap:9px;
-  font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-2);border:1px solid var(--line-2);padding:9px 15px;border-radius:2px;
+  font-family:var(--f-mono);font-size:14px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-2);border:1px solid var(--line-2);padding:10px 17px;border-radius:2px;
   transition:color var(--t-fast),border-color var(--t-fast),background var(--t-fast);
 }
 .nav__btn:hover{color:var(--ink);border-color:var(--ink-3)}
@@ -341,15 +340,15 @@ svg{display:block;overflow:visible}
 .nav__btn--next:hover{color:#12161a;background:var(--accent);border-color:var(--accent)}
 .nav__btn--icon{padding:9px 11px}
 .nav__mid{display:flex;align-items:baseline;gap:10px;font-family:var(--f-mono);letter-spacing:.14em}
-.nav__cur{font-size:15px;color:var(--ink)}
+.nav__cur{font-size:19px;color:var(--ink)}
 .nav__sep{color:var(--ink-4)}
-.nav__tot{font-size:13px;color:var(--ink-3)}
+.nav__tot{font-size:16px;color:var(--ink-3)}
 .nav__label{
-  font-size:11px;text-transform:uppercase;color:var(--ink-4);letter-spacing:.16em;
+  font-size:13px;text-transform:uppercase;color:var(--ink-4);letter-spacing:.14em;
   padding-left:12px;margin-left:2px;border-left:1px solid var(--line-2);
   max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.nav__hint{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-4);text-transform:uppercase}
+.nav__hint{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;color:var(--ink-4);text-transform:uppercase}
 
 /* ---------- 9. Folienübergang ("Druck-Transition") ---------- */
 .printfx{position:fixed;inset:0;z-index:70;pointer-events:none;visibility:hidden}
@@ -394,6 +393,43 @@ svg{display:block;overflow:visible}
 }
 
 /* ---------- 11. Ergänzungen: Szenen & Feinschliff ---------- */
+/* Titelfolie / Abschluss: Referent */
+.hero__by{border-left:3px solid var(--accent);padding-left:20px;margin:32px 0 34px}
+.hero__by-label{display:block;font-family:var(--f-mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.hero__by-name{display:block;font-size:29px;font-weight:500;color:var(--ink);letter-spacing:-.01em}
+
+/* Folie 02 – Inhalt */
+.toc{position:relative;width:100%}
+.toc__bg{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:300px;opacity:.5;pointer-events:none}
+.toc__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(6,auto);grid-auto-flow:column;gap:0 72px;max-width:1060px;position:relative}
+.toc__item{
+  display:grid;grid-template-columns:52px 1fr auto;align-items:baseline;gap:18px;
+  width:100%;text-align:left;padding:19px 6px 19px 0;border-bottom:1px solid var(--line);
+  transition:border-color var(--t-fast);
+}
+.toc__item:hover{border-bottom-color:var(--accent)}
+.toc__item:focus-visible{outline:2px solid var(--tech);outline-offset:3px}
+.toc__no{font-family:var(--f-mono);font-size:17px;color:var(--accent);letter-spacing:.06em}
+.toc__t{font-size:28px;font-weight:400;color:var(--ink-2);letter-spacing:-.01em;transition:color var(--t-fast)}
+.toc__item:hover .toc__t{color:var(--ink)}
+.toc__cat{font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4)}
+
+/* Folie 15 – Danke & Quellen */
+.thanks{display:flex;align-items:center;justify-content:space-between;gap:40px}
+.thanks .hero__by{margin:0}
+.thanks__q{font-family:var(--f-mono);font-size:17px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-4)}
+.srcblock{border-top:1px solid var(--line);padding-top:26px;margin-top:6px}
+.srcblock__head{display:flex;align-items:baseline;gap:20px;margin-bottom:20px}
+.srcblock__h{font-size:24px;font-weight:500;color:var(--ink);letter-spacing:-.01em}
+.srcgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+.srcgrid__h{font-family:var(--f-mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--tech);margin-bottom:14px}
+.srclist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+.srclist li{display:grid;grid-template-columns:34px 1fr;gap:8px;font-size:17px;line-height:1.35;color:var(--ink-3)}
+.srclist b{color:var(--ink-2);font-weight:500}
+.srclist__n{font-family:var(--f-mono);font-size:15px;color:var(--ink-4)}
+.srclist__u{display:block;font-family:var(--f-mono);font-size:13px;color:var(--ink-4);margin-top:3px;word-break:break-word}
+.srcblock > .src{display:block;margin-top:26px;max-width:none}
+
 svg[role="img"]{width:100%;height:auto}
 .body{gap:var(--s4)}
 .fact{align-self:flex-start}
@@ -433,11 +469,15 @@ svg[role="img"]{width:100%;height:auto}
       <h1 class="r" style="--d:180ms"><span>3D-Druck</span></h1>
       <div class="hero__rule r" style="--d:260ms"></div>
       <p class="hero__sub r" style="--d:300ms">Von der digitalen Idee<br>zum fertigen Bauteil</p>
-      <dl class="titleblock r" style="--d:420ms">
+      <div class="hero__by r" style="--d:360ms">
+        <span class="hero__by-label">Präsentation von</span>
+        <span class="hero__by-name">Razvan Stangu</span>
+      </div>
+      <dl class="titleblock r" style="--d:460ms">
         <div><dt>Verfahren</dt><dd>FDM / SLA / SLS</dd></div>
         <div><dt>Material</dt><dd>PLA · PETG · ABS</dd></div>
         <div><dt>Schichthöhe</dt><dd>0,20 mm</dd></div>
-        <div><dt>Folien</dt><dd>13</dd></div>
+        <div><dt>Folien</dt><dd>15</dd></div>
       </dl>
     </div>
 
@@ -538,11 +578,128 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 02 — WAS IST 3D-DRUCK?
+     FOLIE 02 — INHALT
+     ============================================================ -->
+<section class="slide" data-label="Inhalt">
+  <header class="head">
+    <div class="kicker r"><b>02</b><i></i>Überblick</div>
+    <h2 class="title r" style="--d:60ms">Inhalt</h2>
+    <div class="rule r" style="--d:100ms"></div>
+  </header>
+  <div class="body">
+    <div class="toc">
+      <svg class="toc__bg" viewBox="0 0 300 400" aria-hidden="true">
+          <path class="st-f thin lay f-el" style="--o:150px;--d:300ms" d="M150 250 L240 300 L150 350 L60 300 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:355ms" d="M150 237 L240 287 L150 337 L60 287 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:410ms" d="M150 224 L240 274 L150 324 L60 274 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:465ms" d="M150 211 L240 261 L150 311 L60 261 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:520ms" d="M150 198 L240 248 L150 298 L60 248 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:575ms" d="M150 185 L240 235 L150 285 L60 235 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:630ms" d="M150 172 L240 222 L150 272 L60 222 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:685ms" d="M150 159 L240 209 L150 259 L60 209 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:740ms" d="M150 146 L240 196 L150 246 L60 196 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:795ms" d="M150 133 L240 183 L150 233 L60 183 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:850ms" d="M150 120 L240 170 L150 220 L60 170 Z"/>
+          <path class="st-f thin lay f-el" style="--o:150px;--d:905ms" d="M150 107 L240 157 L150 207 L60 157 Z"/>
+        <line class="st-f thin" x1="30" y1="366" x2="270" y2="366"/>
+        <text class="lbl" x="96" y="392">12 THEMEN</text>
+      </svg>
+      <ol class="toc__list">
+          <li class="r" style="--d:160ms">
+            <button class="toc__item" type="button" data-goto="3">
+              <span class="toc__no">03</span>
+              <span class="toc__t">Was ist 3D-Druck?</span>
+              <span class="toc__cat">Grundlagen</span>
+            </button>
+          </li>
+          <li class="r" style="--d:205ms">
+            <button class="toc__item" type="button" data-goto="4">
+              <span class="toc__no">04</span>
+              <span class="toc__t">Anwendungen</span>
+              <span class="toc__cat">Einsatzgebiete</span>
+            </button>
+          </li>
+          <li class="r" style="--d:250ms">
+            <button class="toc__item" type="button" data-goto="5">
+              <span class="toc__no">05</span>
+              <span class="toc__t">Vorteile</span>
+              <span class="toc__cat">Bewertung</span>
+            </button>
+          </li>
+          <li class="r" style="--d:295ms">
+            <button class="toc__item" type="button" data-goto="6">
+              <span class="toc__no">06</span>
+              <span class="toc__t">Nachteile</span>
+              <span class="toc__cat">Bewertung</span>
+            </button>
+          </li>
+          <li class="r" style="--d:340ms">
+            <button class="toc__item" type="button" data-goto="7">
+              <span class="toc__no">07</span>
+              <span class="toc__t">Modellieren</span>
+              <span class="toc__cat">Konstruktion</span>
+            </button>
+          </li>
+          <li class="r" style="--d:385ms">
+            <button class="toc__item" type="button" data-goto="8">
+              <span class="toc__no">08</span>
+              <span class="toc__t">Druckverfahren</span>
+              <span class="toc__cat">Technik</span>
+            </button>
+          </li>
+          <li class="r" style="--d:430ms">
+            <button class="toc__item" type="button" data-goto="9">
+              <span class="toc__no">09</span>
+              <span class="toc__t">Slicer</span>
+              <span class="toc__cat">Vorbereitung</span>
+            </button>
+          </li>
+          <li class="r" style="--d:475ms">
+            <button class="toc__item" type="button" data-goto="10">
+              <span class="toc__no">10</span>
+              <span class="toc__t">Materialien</span>
+              <span class="toc__cat">Werkstoffe</span>
+            </button>
+          </li>
+          <li class="r" style="--d:520ms">
+            <button class="toc__item" type="button" data-goto="11">
+              <span class="toc__no">11</span>
+              <span class="toc__t">Der Ablauf</span>
+              <span class="toc__cat">Prozess</span>
+            </button>
+          </li>
+          <li class="r" style="--d:565ms">
+            <button class="toc__item" type="button" data-goto="12">
+              <span class="toc__no">12</span>
+              <span class="toc__t">Nachbearbeitung</span>
+              <span class="toc__cat">Finish</span>
+            </button>
+          </li>
+          <li class="r" style="--d:610ms">
+            <button class="toc__item" type="button" data-goto="13">
+              <span class="toc__no">13</span>
+              <span class="toc__t">Praxisbeispiel</span>
+              <span class="toc__cat">Anwendung</span>
+            </button>
+          </li>
+          <li class="r" style="--d:655ms">
+            <button class="toc__item" type="button" data-goto="14">
+              <span class="toc__no">14</span>
+              <span class="toc__t">Fazit</span>
+              <span class="toc__cat">Abschluss</span>
+            </button>
+          </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIE 03 — WAS IST 3D-DRUCK?
      ============================================================ -->
 <section class="slide" data-label="Was ist 3D-Druck?">
   <header class="head">
-    <div class="kicker r"><b>02</b><i></i>Grundlagen</div>
+    <div class="kicker r"><b>03</b><i></i>Grundlagen</div>
     <h2 class="title r" style="--d:60ms">Was ist 3D-Druck?</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -617,11 +774,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 03 — ANWENDUNGEN
+     FOLIE 04 — ANWENDUNGEN
      ============================================================ -->
 <section class="slide" data-label="Anwendungen">
   <header class="head">
-    <div class="kicker r"><b>03</b><i></i>Einsatzgebiete</div>
+    <div class="kicker r"><b>04</b><i></i>Einsatzgebiete</div>
     <h2 class="title r" style="--d:60ms">Wo wird 3D-Druck eingesetzt?</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -716,11 +873,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 04 — VORTEILE
+     FOLIE 05 — VORTEILE
      ============================================================ -->
 <section class="slide" data-label="Vorteile">
   <header class="head">
-    <div class="kicker r"><b>04</b><i></i>Bewertung</div>
+    <div class="kicker r"><b>05</b><i></i>Bewertung</div>
     <h2 class="title r" style="--d:60ms">Vorteile</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -816,11 +973,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 05 — NACHTEILE
+     FOLIE 06 — NACHTEILE
      ============================================================ -->
 <section class="slide" data-label="Nachteile">
   <header class="head">
-    <div class="kicker r"><b>05</b><i></i>Bewertung</div>
+    <div class="kicker r"><b>06</b><i></i>Bewertung</div>
     <h2 class="title r" style="--d:60ms">Nachteile</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -915,11 +1072,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 06 — MODELLIEREN
+     FOLIE 07 — MODELLIEREN
      ============================================================ -->
 <section class="slide" data-label="Modellieren">
   <header class="head">
-    <div class="kicker r"><b>06</b><i></i>Konstruktion</div>
+    <div class="kicker r"><b>07</b><i></i>Konstruktion</div>
     <h2 class="title r" style="--d:60ms">Modellieren – das <em>digitale</em> Bauteil</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -927,7 +1084,7 @@ svg[role="img"]{width:100%;height:auto}
     <div class="stack stack--lg">
       <p class="lead r" style="--d:150ms">Beim Modellieren entsteht eine <strong>digitale Konstruktion</strong> mit exakten Maßen – die Vorlage für alles Weitere.</p>
 
-      <svg viewBox="0 0 1400 200" role="img" aria-label="Von der Skizze über die Extrusion zum fertigen 3D-Modell" class="r" style="--d:200ms">
+      <svg class="fig-w" viewBox="0 0 1400 200" role="img" aria-label="Von der Skizze über die Extrusion zum fertigen 3D-Modell" class="r" style="--d:200ms">
         <!-- 1 SKIZZE -->
         <g>
           <path class="st-t draw" style="--len:520;--d:300ms" d="M170 52 h150 a10 10 0 0 1 10 10 v76 a10 10 0 0 1 -10 10 h-150 a10 10 0 0 1 -10 -10 v-76 a10 10 0 0 1 10 -10 z"/>
@@ -1018,11 +1175,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 07 — DRUCKVERFAHREN
+     FOLIE 08 — DRUCKVERFAHREN
      ============================================================ -->
 <section class="slide" data-label="Druckverfahren">
   <header class="head">
-    <div class="kicker r"><b>07</b><i></i>Technik</div>
+    <div class="kicker r"><b>08</b><i></i>Technik</div>
     <h2 class="title r" style="--d:60ms">Welche Druckverfahren gibt es?</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -1127,11 +1284,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 08 — SLICER
+     FOLIE 09 — SLICER
      ============================================================ -->
 <section class="slide" data-label="Slicer">
   <header class="head">
-    <div class="kicker r"><b>08</b><i></i>Vorbereitung</div>
+    <div class="kicker r"><b>09</b><i></i>Vorbereitung</div>
     <h2 class="title r" style="--d:60ms">Vom 3D-Modell zum Druckauftrag</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -1139,7 +1296,7 @@ svg[role="img"]{width:100%;height:auto}
     <div class="stack stack--lg">
       <p class="lead r" style="--d:150ms">Der <strong>Slicer</strong> zerlegt das Modell in einzelne Schichten, berechnet die Druckpfade und erzeugt daraus den <strong>G-Code</strong> für den Drucker.</p>
 
-      <svg viewBox="0 0 1400 250" role="img" aria-label="Pipeline vom 3D-Modell über Slicing und Druckpfad zum Drucker" class="r" style="--d:200ms">
+      <svg class="fig-w" viewBox="0 0 1400 250" role="img" aria-label="Pipeline vom 3D-Modell über Slicing und Druckpfad zum Drucker" class="r" style="--d:200ms">
         <!-- 1 Modell -->
         <g>
           <path class="st-t draw" style="--len:300;--d:300ms" d="M140 46 L200 80 L140 114 L80 80 Z"/>
@@ -1200,19 +1357,19 @@ svg[role="img"]{width:100%;height:auto}
         <div class="col r" style="--d:1400ms">
           <div class="col__no">S.01</div>
           <h3 class="col__h">Bambu Studio</h3>
-          <p class="col__t">Slicer von BambuLab, auf die eigenen Drucker abgestimmt.</p>
+          <p class="col__t">Auf BambuLab-Drucker abgestimmt.</p>
           <ul class="mini"><li>Fertige Profile, viele Automatiken</li><li>Druck über Netzwerk</li></ul>
         </div>
         <div class="col r" style="--d:1460ms">
           <div class="col__no">S.02</div>
           <h3 class="col__h">OrcaSlicer</h3>
-          <p class="col__t">Open-Source-Slicer mit breiter Druckerunterstützung.</p>
+          <p class="col__t">Open Source, unterstützt viele Drucker.</p>
           <ul class="mini"><li>Viele Kalibrierhilfen</li><li>Sehr feine Einstellmöglichkeiten</li></ul>
         </div>
         <div class="col r" style="--d:1520ms">
           <div class="col__no">S.03</div>
           <h3 class="col__h">PrusaSlicer</h3>
-          <p class="col__t">Ausgereifter Open-Source-Slicer mit guten Standardprofilen.</p>
+          <p class="col__t">Open Source, sehr ausgereifte Profile.</p>
           <ul class="mini"><li>Sehr stabil und gut dokumentiert</li><li>Große Community</li></ul>
         </div>
       </div>
@@ -1228,11 +1385,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 09 — MATERIALIEN
+     FOLIE 10 — MATERIALIEN
      ============================================================ -->
 <section class="slide" data-label="Materialien">
   <header class="head">
-    <div class="kicker r"><b>09</b><i></i>Werkstoffe</div>
+    <div class="kicker r"><b>10</b><i></i>Werkstoffe</div>
     <h2 class="title r" style="--d:60ms">Das richtige Material</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -1301,7 +1458,7 @@ svg[role="img"]{width:100%;height:auto}
             <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><circle class="st" cx="22" cy="22" r="18"/><circle class="st-f" cx="22" cy="22" r="12"/><circle class="st-f" cx="22" cy="22" r="5"/></svg>
             <div><div class="mat__name">ASA</div><div class="mat__temp">240 – 260 °C</div></div>
           </div>
-          <ul class="mini"><li>UV-beständig</li><li>Für den Außenbereich</li><li>Ähnlich anspruchsvoll wie ABS</li></ul>
+          <ul class="mini"><li>UV-beständig</li><li>Für den Außenbereich</li><li>Wie ABS zu drucken</li></ul>
           <div class="bars">
             <div class="bar"><span class="bar__l">Festigk.</span><span class="bar__t"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
             <div class="bar"><span class="bar__l">Flex.</span><span class="bar__t"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div>
@@ -1318,18 +1475,18 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 10 — DER ABLAUF
+     FOLIE 11 — DER ABLAUF
      ============================================================ -->
 <section class="slide" data-label="Der Ablauf">
   <header class="head">
-    <div class="kicker r"><b>10</b><i></i>Prozess</div>
+    <div class="kicker r"><b>11</b><i></i>Prozess</div>
     <h2 class="title r" style="--d:60ms">Vom Modell zum fertigen Bauteil</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
   <div class="body">
     <div class="stack stack--lg">
       <div class="rail">
-        <svg viewBox="0 0 1432 224" role="img" aria-label="Ablauf in fünf Schritten entlang einer Druckerschiene">
+        <svg class="fig-w" viewBox="0 0 1432 224" role="img" aria-label="Ablauf in fünf Schritten entlang einer Druckerschiene">
           <!-- Schiene -->
           <g class="fi" style="--d:150ms">
             <rect class="st-f f-el" x="0" y="104" width="1432" height="18" rx="1"/>
@@ -1418,11 +1575,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 11 — NACHBEARBEITUNG
+     FOLIE 12 — NACHBEARBEITUNG
      ============================================================ -->
 <section class="slide" data-label="Nachbearbeitung">
   <header class="head">
-    <div class="kicker r"><b>11</b><i></i>Finish</div>
+    <div class="kicker r"><b>12</b><i></i>Finish</div>
     <h2 class="title r" style="--d:60ms">Vom Rohdruck zum fertigen Teil</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -1484,11 +1641,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 12 — BEISPIEL AUS DER PRAXIS
+     FOLIE 13 — BEISPIEL AUS DER PRAXIS
      ============================================================ -->
 <section class="slide" data-label="Praxisbeispiel">
   <header class="head">
-    <div class="kicker r"><b>12</b><i></i>Praxis</div>
+    <div class="kicker r"><b>13</b><i></i>Praxis</div>
     <h2 class="title r" style="--d:60ms">Beispiel: eine Halterung</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -1570,11 +1727,11 @@ svg[role="img"]{width:100%;height:auto}
 </section>
 
 <!-- ============================================================
-     FOLIE 13 — FAZIT
+     FOLIE 14 — FAZIT
      ============================================================ -->
 <section class="slide" data-label="Fazit">
   <header class="head">
-    <div class="kicker r"><b>13</b><i></i>Fazit</div>
+    <div class="kicker r"><b>14</b><i></i>Fazit</div>
     <h2 class="title r" style="--d:60ms">3D-Druck – aus einer Idee wird ein Bauteil</h2>
     <div class="rule r" style="--d:100ms"></div>
   </header>
@@ -1631,6 +1788,61 @@ svg[role="img"]{width:100%;height:auto}
         </g>
       </svg>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIE 15 — DANKE & QUELLEN
+     ============================================================ -->
+<section class="slide" data-label="Danke &amp; Quellen">
+  <header class="head">
+    <div class="kicker r"><b>15</b><i></i>Abschluss</div>
+    <h2 class="title r" style="--d:60ms">Danke für eure Aufmerksamkeit!</h2>
+    <div class="rule r" style="--d:100ms"></div>
+  </header>
+  <div class="body">
+    <div class="thanks r" style="--d:180ms">
+      <div class="hero__by">
+        <span class="hero__by-label">Präsentation von</span>
+        <span class="hero__by-name">Razvan Stangu</span>
+      </div>
+      <div class="thanks__q">Fragen?</div>
+    </div>
+
+    <div class="srcblock">
+      <div class="srcblock__head r" style="--d:260ms">
+        <h3 class="srcblock__h">Quellen</h3>
+        <span class="src">Abgerufen im September 2026</span>
+      </div>
+      <div class="srcgrid">
+        <section class="r" style="--d:320ms">
+          <h4 class="srcgrid__h">Verfahren &amp; Grundlagen</h4>
+          <ol class="srclist">
+            <li><span class="srclist__n">[1]</span><span><b>Formlabs</b> – Guide to Stereolithography (SLA) 3D Printing<span class="srclist__u">formlabs.com/blog/ultimate-guide-to-stereolithography-sla-3d-printing</span></span></li>
+            <li><span class="srclist__n">[2]</span><span><b>Formlabs</b> – Complete Guide to SLS 3D Printing<span class="srclist__u">formlabs.com/blog/what-is-selective-laser-sintering</span></span></li>
+            <li><span class="srclist__n">[3]</span><span><b>DIN EN ISO/ASTM 52900</b> – Additive Fertigung: Grundlagen, Terminologie<span class="srclist__u">Norm, Ausgabe 2022</span></span></li>
+          </ol>
+        </section>
+        <section class="r" style="--d:380ms">
+          <h4 class="srcgrid__h">Materialien &amp; Druckparameter</h4>
+          <ol class="srclist">
+            <li><span class="srclist__n">[4]</span><span><b>Prusa Research</b> – Filament-Material-Ratgeber (Materialtabelle)<span class="srclist__u">help.prusa3d.com/de/filament-material-guide</span></span></li>
+            <li><span class="srclist__n">[5]</span><span><b>Bambu Lab Wiki</b> – Filament Guide &amp; Material Table<span class="srclist__u">wiki.bambulab.com/en/general/filament-guide-material-table</span></span></li>
+            <li><span class="srclist__n">[6]</span><span><b>Prusa Knowledge Base</b> – Druckprofile, Schichthöhen, Stützstrukturen<span class="srclist__u">help.prusa3d.com</span></span></li>
+          </ol>
+        </section>
+        <section class="r" style="--d:440ms">
+          <h4 class="srcgrid__h">Software</h4>
+          <ol class="srclist">
+            <li><span class="srclist__n">[7]</span><span><b>Bambu Lab Wiki</b> – Bambu Studio<span class="srclist__u">wiki.bambulab.com</span></span></li>
+            <li><span class="srclist__n">[8]</span><span><b>OrcaSlicer</b> – Projektseite<span class="srclist__u">github.com/SoftFever/OrcaSlicer · orcaslicer.com</span></span></li>
+            <li><span class="srclist__n">[9]</span><span><b>PrusaSlicer</b> – Projektseite<span class="srclist__u">github.com/prusa3d/PrusaSlicer</span></span></li>
+            <li><span class="srclist__n">[10]</span><span><b>Autodesk Fusion</b> · <b>Shapr3D</b> · <b>Tinkercad</b> – Hersteller&shy;seiten<span class="srclist__u">autodesk.com · shapr3d.com · tinkercad.com</span></span></li>
+          </ol>
+        </section>
+      </div>
+      <p class="src r" style="--d:500ms">Alle Grafiken, Diagramme und Animationen dieser Präsentation wurden selbst erstellt (SVG). Angaben ohne Quellenverweis sind allgemeines Fachwissen aus dem Unterricht bzw. eigene Beispielwerte.</p>
     </div>
   </div>
 </section>
@@ -1768,9 +1980,11 @@ svg[role="img"]{width:100%;height:auto}
     noz: document.getElementById('outroNoz'),
     baseY: 330, step: 14, lift: 6, interval: 900, hold: 2400, delay: 700
   });
+  /* Szenen an die Folie binden, in der sie tatsächlich stehen */
+  function slideIndexOf(el) { return slides.indexOf(el.closest('.slide')); }
   var scenes = {};
-  scenes[0] = heroBuild;
-  scenes[N - 1] = outroBuild;
+  scenes[slideIndexOf(document.getElementById('heroLayers'))] = heroBuild;
+  scenes[slideIndexOf(document.getElementById('outroLayers'))] = outroBuild;
 
   /* ---------- 2. Foliensteuerung ---------- */
   function paint(n) {
@@ -1863,6 +2077,14 @@ svg[role="img"]{width:100%;height:auto}
       case 'End': goTo(N - 1); e.preventDefault(); break;
       case 'f': case 'F': toggleFs(); e.preventDefault(); break;
     }
+  });
+
+  /* Inhaltsfolie: Klick auf einen Eintrag springt zur Folie */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-goto]') : null;
+    if (!t) return;
+    e.preventDefault();
+    goTo(parseInt(t.getAttribute('data-goto'), 10) - 1);
   });
 
   elNext.addEventListener('click', next);

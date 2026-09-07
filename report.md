@@ -1,7 +1,8 @@
 # Projektbericht — Interaktive 3D-Druck-Präsentation
 
-**Datei:** `index.html` · **Branch:** `claude/3d-druck-presentation-92x9ys` · **Commit:** `25543cc`
+**Datei:** `index.html` · **Branch:** `claude/3d-druck-presentation-92x9ys`
 **Online-Version:** https://claude.ai/code/artifact/c00c2ec9-561d-49b6-88e1-6b540cfe2d71
+**Stand:** Überarbeitung mit Inhaltsfolie, Quellenfolie und größerer Schrift
 
 ---
 
@@ -12,10 +13,10 @@ im Browser wie eine PowerPoint-Präsentation bedienen lässt — nicht wie eine 
 
 | | |
 |---|---|
-| Umfang | 13 Folien, alle Texte auf Deutsch |
+| Umfang | 15 Folien, alle Texte auf Deutsch |
 | Format | 16:9, feste Bühne 1600 × 900, auf den Viewport skaliert |
-| Dateien | eine einzige `index.html` (~95 KB, 1.923 Zeilen) |
-| Enthält | HTML, CSS, JavaScript und 34 selbst gezeichnete SVG-Grafiken |
+| Dateien | eine einzige `index.html` (~107 KB, 2.145 Zeilen) |
+| Enthält | HTML, CSS, JavaScript und 35 selbst gezeichnete SVG-Grafiken |
 | Abhängigkeiten | keine — kein Build, kein npm, kein Backend, kein Framework |
 | Einzige externe Ressource | Google Fonts (mit System-Fallback, siehe Abschnitt 9) |
 
@@ -29,19 +30,24 @@ Die Gliederung folgt eins zu eins der Mindmap; jeder Ast hat eine eigene Folie b
 
 | Nr. | Titel | Inhalt | Zentrale Grafik |
 |----:|-------|--------|-----------------|
-| 01 | 3D-Druck | Titel, Untertitel, Schriftfeld wie auf einer technischen Zeichnung | Druckerszene: Bett senkt sich, Bauteil wächst Schicht für Schicht |
-| 02 | Was ist 3D-Druck? | digitales Modell, Schicht für Schicht, additive Fertigung, Verfahren | 3D-Modell → Schichten → Bauteil (isometrisch) |
-| 03 | Wo wird 3D-Druck eingesetzt? | Schule, Medizin, Industrie, Modellbau, Ersatzteile — je 3 Unterpunkte | fünf Icons im gleichen Strichstil |
-| 04 | Vorteile | schnelle Prototypen, wenig Materialverschwendung, leichter Zugang | Versionsreihe V1–V3, subtraktiv vs. additiv, Zugangs-Icons |
-| 05 | Nachteile | Dauer, Nachbearbeitung, Materialkosten | Zeitbalken, Bauteil mit Stützstruktur, Spule mit Preisstaffel |
-| 06 | Modellieren | Fusion 360, Shapr3D, Tinkercad | Skizze → Volumenkörper → 3D-Modell (STL/3MF) |
-| 07 | Druckverfahren | FDM, SLA, SLS mit je 3 Merkmalen und Schichthöhen | drei Verfahrensschemata (Düse, Resin-Becken, Pulverbett) |
-| 08 | Vom 3D-Modell zum Druckauftrag | Bambu Studio, OrcaSlicer, PrusaSlicer, wichtigste Parameter | Pipeline Modell → Slicing → Layer → Druckpfad → G-Code |
-| 09 | Das richtige Material | PLA, PETG, ABS, TPU, ASA mit Temperaturen und Eigenschaften | Vergleich über 4 Eigenschaftsbalken je Material |
-| 10 | Vom Modell zum fertigen Bauteil | die fünf Schritte des Ablaufs | Druckerschiene mit fünf nummerierten Stationen |
-| 11 | Vom Rohdruck zum fertigen Teil | Stützen entfernen, entgraten, schleifen, reinigen, lackieren | Rohdruck → Nachbearbeitung → fertiges Bauteil |
-| 12 | Beispiel: eine Halterung | kompletter Weg von der Idee bis zum Bauteil, mit Kennwerten | 7-stufige Kette + Datenzeile (Material, Schichthöhe, Infill, Zeit, Gewicht) |
-| 13 | Fazit | Zusammenfassung, Schlusssatz „Von der Idee zur ersten Schicht." | Objekt baut sich Schicht für Schicht auf |
+| 01 | 3D-Druck | Titel, Untertitel, **Referent: Razvan Stangu**, Schriftfeld wie auf einer technischen Zeichnung | Druckerszene: Bett senkt sich, Bauteil wächst Schicht für Schicht |
+| 02 | Inhalt | Überblick über alle zwölf Themenfolien, nach Rubriken beschriftet | ghost-artiger Schichtstapel im Hintergrund (12 Layer = 12 Themen) |
+| 03 | Was ist 3D-Druck? | digitales Modell, Schicht für Schicht, additive Fertigung, Verfahren | 3D-Modell → Schichten → Bauteil (isometrisch) |
+| 04 | Wo wird 3D-Druck eingesetzt? | Schule, Medizin, Industrie, Modellbau, Ersatzteile — je 3 Unterpunkte | fünf Icons im gleichen Strichstil |
+| 05 | Vorteile | schnelle Prototypen, wenig Materialverschwendung, leichter Zugang | Versionsreihe V1–V3, subtraktiv vs. additiv, Zugangs-Icons |
+| 06 | Nachteile | Dauer, Nachbearbeitung, Materialkosten | Zeitbalken, Bauteil mit Stützstruktur, Spule mit Preisstaffel |
+| 07 | Modellieren | Fusion 360, Shapr3D, Tinkercad | Skizze → Volumenkörper → 3D-Modell (STL/3MF) |
+| 08 | Druckverfahren | FDM, SLA, SLS mit je 3 Merkmalen und Schichthöhen | drei Verfahrensschemata (Düse, Resin-Becken, Pulverbett) |
+| 09 | Vom 3D-Modell zum Druckauftrag | Bambu Studio, OrcaSlicer, PrusaSlicer, wichtigste Parameter | Pipeline Modell → Slicing → Layer → Druckpfad → G-Code |
+| 10 | Das richtige Material | PLA, PETG, ABS, TPU, ASA mit Temperaturen und Eigenschaften | Vergleich über 4 Eigenschaftsbalken je Material |
+| 11 | Vom Modell zum fertigen Bauteil | die fünf Schritte des Ablaufs | Druckerschiene mit fünf nummerierten Stationen |
+| 12 | Vom Rohdruck zum fertigen Teil | Stützen entfernen, entgraten, schleifen, reinigen, lackieren | Rohdruck → Nachbearbeitung → fertiges Bauteil |
+| 13 | Beispiel: eine Halterung | kompletter Weg von der Idee bis zum Bauteil, mit Kennwerten | 7-stufige Kette + Datenzeile (Material, Schichthöhe, Infill, Zeit, Gewicht) |
+| 14 | Fazit | Zusammenfassung, Schlusssatz „Von der Idee zur ersten Schicht." | Objekt baut sich Schicht für Schicht auf |
+| 15 | Danke &amp; Quellen | Dank, Referent, nummerierte Quellenliste nach Themen gruppiert | — |
+
+Die Einträge auf der Inhaltsfolie sind anklickbar und springen direkt zur jeweiligen Folie.
+Ihre Nummern entsprechen genau den Foliennummern, die oben links auf jeder Folie stehen.
 
 Textmenge bewusst knapp gehalten: Stichpunkte statt Fließtext, maximal fünf bis sechs
 Punkte pro Bereich. Erklärt wird beim Vortrag, die Folie liefert nur das Gerüst.
@@ -69,6 +75,23 @@ selbsterklärend, ohne dass eine Legende nötig wäre.
 * **IBM Plex Mono** für Nummerierungen, Kennwerte, Beschriftungen in Grafiken, Navigation
 * Mehr als zwei Schriftfamilien kommen nicht vor.
 
+Die Größen sind auf Beamer-Entfernung ausgelegt (Werte in Bühnen-Pixeln; auf einem
+Full-HD-Beamer werden sie zusätzlich mit Faktor 1,2 skaliert):
+
+| Rolle | Größe |
+|-------|------:|
+| Titel der Titelfolie | 96 px |
+| Folientitel | 54 px |
+| Einleitungssatz (Lead) | 26 px |
+| Stichpunkte | 23 px |
+| Spaltenüberschriften | 27 px |
+| Beschreibungen, Unterpunkte | 19 px |
+| Kennwerte, Chips, Rubriken (Mono) | 14 – 22 px |
+| Beschriftungen in Grafiken | 13 px im SVG, je nach Skalierung 16 – 18 px auf dem Schirm |
+
+Damit die größere Schrift nichts sprengt, wurden Zeilenhöhen, Abstände, Spaltenabstände
+und einzelne Texte angepasst — an keiner Stelle wurde die Schrift wieder verkleinert.
+
 ### Layout
 
 Kein Karten-Design. Getrennt wird ausschließlich über feine 1-px-Linien, wie in einer
@@ -84,11 +107,11 @@ Alle Bewegungen sind vom Thema abgeleitet; kein pauschales Ein- und Ausblenden.
 
 | Animation | Wo | Verhalten |
 |-----------|----|-----------|
-| Schichtaufbau | Folie 01 und 13 | Düse fährt hin und her, Bett senkt sich, Schichten erscheinen einzeln (JavaScript-Schleife) |
-| Linien zeichnen | Folien 02, 06, 08, 10 | Pfade werden über `stroke-dasharray` gezeichnet wie bei einer technischen Zeichnung |
-| Filamentfluss | Folien 01, 07 | laufende Strichlinie im Schlauch |
-| Slicing-Ebene | Folie 08 | Schnittebene wandert langsam durch das Modell |
-| Laser-Scan / Lichtquelle | Folie 07 | Scankopf fährt über das Pulverbett, Licht pulsiert unter dem Resin-Becken |
+| Schichtaufbau | Folie 01 und 14 | Düse fährt hin und her, Bett senkt sich, Schichten erscheinen einzeln (JavaScript-Schleife) |
+| Linien zeichnen | Folien 03, 07, 09, 11 | Pfade werden über `stroke-dasharray` gezeichnet wie bei einer technischen Zeichnung |
+| Filamentfluss | Folien 01, 08 | laufende Strichlinie im Schlauch |
+| Slicing-Ebene | Folie 09 | Schnittebene wandert langsam durch das Modell |
+| Laser-Scan / Lichtquelle | Folie 08 | Scankopf fährt über das Pulverbett, Licht pulsiert unter dem Resin-Becken |
 | Aufbau der Inhalte | alle Folien | gestaffeltes Erscheinen von unten, 50–60 ms Versatz |
 
 **Folienwechsel 01 ↔ 02** — der auffällige Übergang: 18 horizontale Bänder wachsen von
@@ -115,11 +138,12 @@ ohne Animation und ohne Druck-Transition.
 | `F` oder Button unten links | Vollbild ein/aus |
 | Klick auf rechte / linke Bildhälfte | vor / zurück (praktisch am Beamer) |
 | Wischen nach links / rechts | vor / zurück (Tablet, Handy) |
+| Klick auf einen Eintrag der Inhaltsfolie | springt direkt zu dieser Folie |
 | `index.html#7` | springt direkt zu Folie 7 |
 
-Unten läuft eine Leiste mit „← Zurück", Folienzähler `01 / 13` samt Folienname und
+Unten läuft eine Leiste mit „← Zurück", Folienzähler `01 / 15` samt Folienname und
 „Weiter →". Am oberen Bildrand zeigt ein dünner Balken den Fortschritt, unterteilt in
-13 Abschnitte.
+15 Abschnitte.
 
 ---
 
@@ -148,7 +172,7 @@ index.html
 │   ├── 8. Navigation
 │   ├── 9. Folienübergang
 │   └── 10./11. Responsive und Ergänzungen
-├── <section class="slide"> × 13
+├── <section class="slide"> × 15
 ├── <footer class="nav">
 └── <script>
     ├── 1. Bühne skalieren
@@ -164,7 +188,7 @@ eine Änderung dort wirkt sich auf die gesamte Präsentation aus.
 
 ### Grafiken
 
-Alle 34 Grafiken sind von Hand als SVG geschrieben: Druckerdüse, Druckbett, Filamentrolle,
+Alle 35 Grafiken sind von Hand als SVG geschrieben: Druckerdüse, Druckbett, Filamentrolle,
 Schichten, CAD-Würfel, Slicer-Layer, Druckpfad mit Infill, Materialspulen, Stützstrukturen,
 Maßlinien, Koordinatensysteme. Keine Stockbilder, keine Icon-Bibliothek. Sie teilen sich
 gemeinsame CSS-Klassen für Strichstärke und Farbe und wirken dadurch wie aus einem Guss.
@@ -177,23 +201,35 @@ Konkrete Zahlen sind auf der jeweiligen Folie eingeordnet und mit einem Hinweis 
 
 | Angabe | Folie | Kennzeichnung |
 |--------|-------|---------------|
-| Schichthöhe FDM 0,10–0,30 mm | 02 | „Quelle: Standardprofile gängiger Slicer (Bambu Studio, PrusaSlicer)" |
-| Druckzeiten ~30 min / ~4 h / 20 h+ | 05 | „Beispielwerte für FDM, 0,2 mm Schichthöhe" |
-| Preisstaffel PLA/ABS/TPU | 05 | „Relative Einordnung typischer Filamentpreise" |
-| Schichthöhen FDM / SLA | 07 | als Spanne angegeben |
-| Düsentemperaturen aller fünf Materialien | 09 | „typische Herstellerangaben, je nach Drucker und Filament abweichend" |
-| Eigenschaftsbalken 1–5 | 09 | „qualitative Einordnung" |
-| Kennwerte der Beispiel-Halterung | 12 | „Beispielwerte … die tatsächlichen Werte berechnet der Slicer" |
+| Schichthöhe FDM 0,10–0,30 mm | 03 | „Quelle: Standardprofile gängiger Slicer (Bambu Studio, PrusaSlicer)" |
+| Druckzeiten ~30 min / ~4 h / 20 h+ | 06 | „Beispielwerte für FDM, 0,2 mm Schichthöhe" |
+| Preisstaffel PLA/ABS/TPU | 06 | „Relative Einordnung typischer Filamentpreise" |
+| Schichthöhen FDM / SLA | 08 | als Spanne angegeben |
+| Düsentemperaturen aller fünf Materialien | 10 | „typische Herstellerangaben, je nach Drucker und Filament abweichend" |
+| Eigenschaftsbalken 1–5 | 10 | „qualitative Einordnung" |
+| Kennwerte der Beispiel-Halterung | 13 | „Beispielwerte … die tatsächlichen Werte berechnet der Slicer" |
+
+Auf Folie 15 sind die verwendeten externen Quellen vollständig aufgeführt, gruppiert nach
+Verfahren &amp; Grundlagen, Materialien &amp; Druckparameter sowie Software:
+
+* Formlabs — Guide to Stereolithography (SLA) und Complete Guide to SLS 3D Printing
+* DIN EN ISO/ASTM 52900 — Additive Fertigung: Grundlagen, Terminologie
+* Prusa Research — Filament-Material-Ratgeber und Prusa Knowledge Base
+* Bambu Lab Wiki — Filament Guide &amp; Material Table, Bambu Studio
+* OrcaSlicer und PrusaSlicer — Projektseiten
+* Autodesk Fusion, Shapr3D, Tinkercad — Herstellerseiten
+
+Alle Grafiken sind Eigenarbeit; für sie wird bewusst keine Quelle angegeben.
 
 ---
 
 ## 8. Geprüft
 
-Getestet in Chromium über alle 13 Folien:
+Getestet in Chromium über alle 15 Folien:
 
-* **Layout:** kein vertikaler oder horizontaler Überlauf auf einer der 13 Folien
+* **Layout:** kein vertikaler oder horizontaler Überlauf auf einer der 15 Folien
 * **JavaScript:** keine Fehler in der Konsole
-* **Navigation:** Vorwärts, Rückwärts, Pos1, Ende, Deeplinks, Druck-Transition
+* **Navigation:** Vorwärts, Rückwärts, Pos1, Ende, Deeplinks, Druck-Transition, Sprünge über die Inhaltsfolie
 * **Auflösungen:** 1600 × 900, 1280 × 720, 1024 × 768, 820 × 1180 (Tablet), 390 × 844 (Handy)
 
 ---
