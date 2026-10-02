@@ -44,8 +44,8 @@
       var(--bg);
     --mx: 0; --my: 0;
   }
-  .stage[data-slide="1"] { --accent: var(--mail); }
-  .stage[data-slide="2"] { --accent: var(--pod); }
+  .stage[data-accent="mail"] { --accent: var(--mail); }
+  .stage[data-accent="pod"] { --accent: var(--pod); }
 
   /* ---------- Slides ---------- */
   .slide {
@@ -83,9 +83,9 @@
   .meta .brand { transition: opacity .8s var(--ease); }
   .stage[data-slide="0"] .meta .brand { opacity: 0; }
   .progress { display: flex; align-items: center; gap: 18px; font-family: var(--mono); font-size: 18px; }
-  .progress .bars { display: flex; gap: 6px; }
+  .progress .bars { display: flex; gap: 5px; }
   .progress .bars i {
-    display: block; width: 28px; height: 2px; background: var(--line-2);
+    display: block; width: 16px; height: 2px; background: var(--line-2);
     transition: background .8s var(--ease);
   }
   .progress .bars i.done { background: var(--faint); }
@@ -294,6 +294,328 @@
   .s4 .ring { fill: none; stroke: var(--fg); stroke-width: 1; }
   .s4 .ask { position: absolute; left: 140px; bottom: 96px; font-size: 26px; color: var(--muted); }
 
+
+  /* =====================================================================
+     Extension: information slides (same system, same tokens)
+     ===================================================================== */
+  section[data-accent="mail"] { --ac: var(--mail); --ac-soft: rgba(106, 164, 255, .14); }
+  section[data-accent="pod"]  { --ac: var(--pod);  --ac-soft: rgba(255, 122, 72, .14); }
+  section { --ac: var(--fg); --ac-soft: rgba(243, 241, 236, .1); }
+
+  .notes { display: none; }
+
+  /* shared header: category + core question */
+  .hd { position: absolute; left: 140px; top: 136px; }
+  .kick {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 22px; font-weight: 500; letter-spacing: .01em; color: var(--ac);
+  }
+  .kick::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+  .kick-abs { position: absolute; left: 6px; top: -46px; white-space: nowrap; }
+  .h-m { font-size: 84px; line-height: 1.02; font-weight: 600; letter-spacing: -.035em; margin-top: 18px; }
+
+  .rf { opacity: 0; }
+  .slide.on .rf { opacity: 1; transition: opacity 1s var(--ease) var(--d, 0s); }
+
+  /* small icon helper */
+  .ic { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- generic flow (line, checkpoints, travelling dot) ---------- */
+  .fl-line { fill: none; stroke: var(--line-2); stroke-width: 1.5;
+    stroke-dasharray: var(--len); stroke-dashoffset: var(--len); }
+  .slide.on .fl-line { stroke-dashoffset: 0; transition: stroke-dashoffset 1.8s cubic-bezier(.45, 0, .2, 1) var(--d, 0s); }
+  .fl-trail { fill: none; stroke: var(--ac); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 0 99999; }
+  .nd { opacity: 0; }
+  .slide.on .nd { opacity: 1; transition: opacity .8s var(--ease) var(--d, 0s); }
+  .nd .core { fill: var(--bg); stroke: var(--faint); stroke-width: 1.5; transition: fill .6s var(--ease), stroke .6s var(--ease); }
+  .nd .halo { fill: var(--ac); opacity: 0; transition: opacity .8s var(--ease); }
+  .nd .glow { fill: none; stroke: var(--ac); stroke-width: 1.5; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .nd.hit .core { fill: var(--ac); stroke: var(--ac); }
+  .nd.hit .halo { opacity: .16; }
+  .nd.hit .glow { animation: glow 1.8s var(--ease) forwards; }
+  @keyframes glow { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(3.4); } }
+
+  .fdot { opacity: 0; transition: opacity .4s var(--ease); }
+  .fdot .h { fill: var(--ac); opacity: .2; }
+  .fdot .c { fill: var(--ac); }
+  .fdot .env { fill: var(--ac); }
+  .fdot .flap { fill: none; stroke: #0a0d14; stroke-width: 1.4; stroke-linejoin: round; }
+
+  .nl {
+    position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center;
+    color: var(--faint); opacity: 0;
+  }
+  .nl.above { justify-content: flex-end; }
+  .slide.on .nl { opacity: 1; transition: opacity .8s var(--ease) var(--d, 0s); }
+  .nl .ic { margin-bottom: 10px; transition: color .6s var(--ease); }
+  .nl .nn { font-size: 26px; font-weight: 500; letter-spacing: -.01em; transition: color .6s var(--ease); white-space: nowrap; }
+  .nl .nn b { font-family: var(--mono); font-size: 17px; font-weight: 500; margin-right: 10px; letter-spacing: .02em; }
+  .nl .exp {
+    margin-top: 10px; font-size: 21px; line-height: 1.32; color: var(--muted);
+    opacity: 0; transform: translateY(8px);
+    transition: opacity .8s var(--ease) .15s, transform .9s var(--ease) .15s;
+  }
+  .nl.hit .ic { color: var(--ac); }
+  .nl.hit .nn { color: var(--fg); }
+  .nl.hit .nn b { color: var(--ac); }
+  .nl.hit .exp { opacity: 1; transform: none; }
+
+  /* ---------- 03 · Technik ---------- */
+  .tech .st { position: absolute; width: 320px; margin-left: -160px; top: 392px; text-align: center; }
+  .tech .st .ic { width: 58px; height: 58px; stroke-width: 1.2; color: var(--fg-2); }
+  .tech .st h4 { margin-top: 18px; font-size: 28px; font-weight: 600; letter-spacing: -.01em; }
+  .tech .st p { margin-top: 6px; font-size: 21px; line-height: 1.3; color: var(--muted); }
+  .tech .proto { font-family: var(--mono); font-size: 18px; fill: var(--ac); letter-spacing: .04em; }
+  .tech .proto.pull { fill: var(--fg-2); }
+  .tech .seg { fill: none; stroke: var(--line-2); stroke-width: 1.5; stroke-dasharray: var(--len); stroke-dashoffset: var(--len); }
+  .slide.on.tech .seg { stroke-dashoffset: 0; transition: stroke-dashoffset 1.2s cubic-bezier(.45, 0, .2, 1) var(--d); }
+  .tech .arrow { fill: none; stroke: var(--faint); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .tech .cols { position: absolute; left: 140px; right: 140px; top: 676px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
+  .tech .cols div { border-top: 1px solid var(--line-2); padding-top: 22px; position: relative; }
+  .tech .cols div::before { content: ""; position: absolute; left: 0; top: -1px; width: 22px; height: 1px; background: var(--ac); }
+  .tech .cols h4 { font-size: 36px; font-weight: 600; letter-spacing: -.01em; display: flex; align-items: baseline; gap: 16px; }
+  .tech .cols h4 span { font-size: 20px; font-weight: 500; color: var(--ac); }
+  .tech .cols p { margin-top: 12px; font-size: 25px; line-height: 1.36; color: var(--fg-2); }
+
+  /* ---------- 04 · Versand (mail flow) ---------- */
+  .pane {
+    position: absolute; background: var(--panel); border-radius: 12px;
+    box-shadow: inset 0 0 0 1px var(--line-2), 0 30px 60px -30px rgba(0, 0, 0, .8);
+    overflow: hidden; font-size: 20px;
+  }
+  .pane .bar { height: 48px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+    border-bottom: 1px solid var(--line); color: var(--muted); font-size: 18px; font-weight: 500; }
+  .pane .row { height: 46px; display: flex; align-items: center; padding: 0 22px; border-bottom: 1px solid var(--line); }
+  .pane .row em { font-style: normal; color: var(--faint); width: 90px; font-size: 18px; flex: none; }
+  .pane .row span { color: var(--fg-2); white-space: nowrap; }
+  .caret { display: inline-block; width: 1.5px; height: 22px; background: var(--ac); margin-left: 2px; vertical-align: -4px; opacity: 0; }
+  .caret.on { animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } 0% { opacity: 1; } }
+  .pane .lines { padding: 22px 22px 0; display: grid; gap: 14px; }
+  .pane .lines i { display: block; height: 8px; border-radius: 4px; background: rgba(243, 241, 236, .09); transform-origin: left; transform: scaleX(0); }
+  .slide.on .pane .lines i { transform: scaleX(1); transition: transform .9s var(--ease) var(--d); }
+  .chip {
+    display: inline-flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 7px;
+    box-shadow: inset 0 0 0 1px var(--line-2); font-size: 17px; color: var(--fg-2); white-space: nowrap;
+  }
+  .chip .ic { width: 17px; height: 17px; color: var(--muted); }
+  .composer { left: 140px; top: 300px; width: 560px; height: 300px; }
+  .composer .chip { position: absolute; left: 22px; bottom: 22px; }
+  .composer .send {
+    position: absolute; right: 22px; bottom: 20px; height: 40px; padding: 0 18px; border-radius: 7px;
+    display: grid; place-items: center; background: var(--mail); color: #0a0d14; font-size: 17px; font-weight: 600;
+  }
+  .composer .send span { grid-area: 1 / 1; transition: opacity .4s var(--ease) var(--d); }
+  .composer .send .done { opacity: 0; }
+  .slide.on .composer .send { animation: press .5s var(--ease) var(--d) both; }
+  .slide.on .composer .send .go { opacity: 0; }
+  .slide.on .composer .send .done { opacity: 1; }
+
+  .inbox { left: 1220px; top: 300px; width: 560px; height: 300px; }
+  .inbox .item { height: 62px; display: flex; align-items: center; gap: 16px; padding: 0 22px; border-bottom: 1px solid var(--line); }
+  .inbox .item .dotn { width: 9px; height: 9px; border-radius: 50%; background: var(--mail); flex: none; }
+  .inbox .item b { font-weight: 600; font-size: 19px; color: var(--fg); width: 130px; flex: none; }
+  .inbox .item span { font-size: 19px; color: var(--fg-2); flex: 1; }
+  .inbox .item .ic { width: 17px; height: 17px; color: var(--muted); }
+  .inbox .item.old i { display: block; height: 8px; border-radius: 4px; background: rgba(243, 241, 236, .07); }
+  .inbox .item.new { background: var(--ac-soft); }
+  .inbox .list { position: relative; }
+  .inbox .opened {
+    position: absolute; left: 0; right: 0; top: 48px; bottom: 0; background: var(--panel); padding: 20px 22px;
+  }
+  .inbox .opened h5 { font-size: 24px; font-weight: 600; letter-spacing: -.01em; }
+  .inbox .opened small { display: block; margin-top: 4px; font-size: 17px; color: var(--muted); }
+  .inbox .opened .lines { padding: 18px 0 0; }
+  .inbox .opened .chip { margin-top: 18px; }
+
+  .ticker { position: absolute; left: 740px; width: 440px; top: 312px; height: 290px; text-align: center; }
+  .ticker .lbl { font-size: 18px; color: var(--faint); letter-spacing: .04em; }
+  .ticker .no { font-family: var(--mono); font-size: 92px; font-weight: 300; line-height: 1.05; margin-top: 6px; color: var(--fg); }
+  .ticker .no small { font-size: 30px; color: var(--faint); margin-left: 6px; }
+  .ticker .txt { margin-top: 10px; font-size: 27px; line-height: 1.3; color: var(--fg-2); min-height: 72px; transition: opacity .35s var(--ease); }
+  .replay {
+    margin-top: 12px; font: inherit; font-size: 17px; color: var(--faint); background: none; border: 0; cursor: pointer;
+    padding: 6px 10px; transition: color .3s var(--ease);
+  }
+  .replay:hover { color: var(--fg-2); }
+
+  /* ---------- 05 · Aufbau ---------- */
+  .anat .win { left: 140px; top: 300px; width: 680px; height: 610px; font-size: 21px; }
+  .anat .win .row { height: 52px; }
+  .anat .fld { position: relative; }
+  .anat .fld::after { content: ""; position: absolute; inset: 0; background: var(--mail); opacity: 0; pointer-events: none; }
+  .slide.on.anat .fld::after { animation: flash 2.2s var(--ease) var(--d) both; }
+  @keyframes flash { 0% { opacity: 0; } 15% { opacity: .16; } 100% { opacity: .045; } }
+  .anat .body { height: 178px; padding: 20px 22px 0; }
+  .anat .body p { font-size: 20px; color: var(--fg-2); }
+  .anat .body .lines { padding: 14px 0 12px; }
+  .anat .sig { height: 50px; display: flex; align-items: center; padding: 0 22px; font-size: 18px; color: var(--muted); border-top: 1px dashed var(--line-2); }
+  .anat .att { height: 70px; display: flex; align-items: center; padding: 0 22px; border-top: 1px solid var(--line); }
+  .anat .lead { fill: none; stroke: var(--mail); stroke-width: 1.2; stroke-dasharray: 120; stroke-dashoffset: 120; opacity: .7; }
+  .slide.on.anat .lead { stroke-dashoffset: 0; transition: stroke-dashoffset .7s var(--ease) var(--d); }
+  .anat .pin { fill: var(--mail); opacity: 0; }
+  .slide.on.anat .pin { opacity: 1; transition: opacity .4s var(--ease) var(--d); }
+  .anat .ann { position: absolute; left: 960px; width: 820px; font-size: 25px; line-height: 1.2;
+    display: flex; align-items: baseline; gap: 22px; margin-top: -15px; white-space: nowrap; }
+  .anat .ann b { width: 120px; flex: none; font-weight: 600; color: var(--fg); }
+  .anat .ann span { color: var(--fg-2); }
+  .anat .ann span i { font-style: normal; font-family: var(--mono); font-size: 21px; color: var(--mail); }
+
+  /* ---------- 06 · Sicherheit ---------- */
+  .sec .win { left: 140px; top: 300px; width: 700px; height: 470px; }
+  .sec .win .row span { font-size: 19px; }
+  .sec .win .body { padding: 20px 22px 0; font-size: 20px; line-height: 1.45; color: var(--fg-2); }
+  .sec .win .cta { display: inline-flex; margin-top: 14px; height: 40px; align-items: center; padding: 0 18px; border-radius: 7px;
+    background: rgba(243, 241, 236, .9); color: #0a0a0b; font-weight: 600; font-size: 17px; }
+  .sec .win .url { display: inline-block; margin-left: 14px; font-family: var(--mono); font-size: 15px; color: var(--muted); vertical-align: middle; }
+  .sec .win .att { position: absolute; left: 22px; bottom: 20px; }
+  .sec .flag { position: relative; }
+  .sec .flag::after { content: ""; position: absolute; inset: -3px -6px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--mail);
+    opacity: 0; pointer-events: none; }
+  .slide.on.sec .flag::after { opacity: .7; transition: opacity .6s var(--ease) var(--d); }
+  .mk {
+    position: absolute; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--mail); color: #0a0d14; font-family: var(--mono); font-size: 15px; font-weight: 600; font-style: normal;
+    opacity: 0; transform: scale(.6);
+  }
+  .slide.on .mk { opacity: 1; transform: none; transition: opacity .5s var(--ease) var(--d), transform .7s var(--ease) var(--d); }
+  .sec .defs { position: absolute; left: 940px; width: 840px; top: 300px; display: grid; gap: 16px; }
+  .sec .defs p { display: grid; grid-template-columns: 150px 1fr; font-size: 24px; line-height: 1.3; color: var(--fg-2); }
+  .sec .defs p b { font-weight: 600; color: var(--fg); }
+  .sec .signs { position: absolute; left: 940px; width: 840px; top: 470px; list-style: none; }
+  .sec .signs .cap { font-size: 20px; color: var(--muted); margin-bottom: 8px; }
+  .sec .signs li { display: flex; align-items: baseline; gap: 22px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 26px; }
+  .sec .signs li .idx { color: var(--mail); width: 26px; flex: none; }
+  .sec .protect { position: absolute; left: 140px; right: 140px; top: 808px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .sec .protect div { border-top: 1px solid var(--line-2); padding-top: 14px; position: relative; }
+  .sec .protect div::before { content: ""; position: absolute; left: 0; top: -1px; width: 22px; height: 1px; background: var(--mail); }
+  .sec .protect b { display: block; font-size: 23px; font-weight: 600; }
+  .sec .protect span { display: block; margin-top: 4px; font-size: 20px; line-height: 1.3; color: var(--muted); }
+
+  /* ---------- 08 · Produktion ---------- */
+  .prod .vb { transition: fill .5s var(--ease); }
+  .prod .mic { position: absolute; left: 140px; top: 556px; width: 88px; height: 88px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--pod); box-shadow: inset 0 0 0 1.5px rgba(255, 122, 72, .6); }
+  .prod .mic .ic { width: 38px; height: 38px; }
+  .prod .rec { position: absolute; left: 152px; top: 660px; font-family: var(--mono); font-size: 15px; color: var(--pod); letter-spacing: .1em;
+    display: flex; align-items: center; gap: 8px; opacity: 0; transition: opacity .4s var(--ease); }
+  .prod .rec::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pod); animation: blink 1.2s steps(1) infinite; }
+  .prod .trk { position: absolute; left: 140px; font-size: 17px; color: var(--faint); letter-spacing: .02em; }
+  .prod .mark { fill: var(--ac-soft); stroke: var(--pod); stroke-width: 1; stroke-dasharray: 4 4; }
+  .prod .mlab { font-size: 18px; fill: var(--pod); }
+  .prod .file {
+    position: absolute; left: 1560px; top: 560px; width: 220px; padding: 16px 18px; border-radius: 10px;
+    background: var(--panel); box-shadow: inset 0 0 0 1px var(--line-2), 0 20px 40px -20px rgba(0, 0, 0, .8);
+    opacity: 0; transform: translateY(10px); transition: opacity .8s var(--ease), transform .9s var(--ease);
+  }
+  .prod .file.show { opacity: 1; transform: none; }
+  .prod .file .nm { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 600; }
+  .prod .file .nm .ic { width: 22px; height: 22px; color: var(--pod); }
+  .prod .file small { display: block; margin-top: 6px; font-size: 16px; color: var(--muted); }
+  .prod .file .pb { margin-top: 12px; height: 3px; background: var(--line-2); border-radius: 2px; overflow: hidden; }
+  .prod .file .pb i { display: block; height: 100%; width: 0; background: var(--pod); }
+  .caps { position: absolute; left: 260px; width: 1180px; top: 836px; height: 80px; }
+  .caps p { position: absolute; inset: 0; font-size: 29px; line-height: 1.3; color: var(--fg-2); opacity: 0; transform: translateY(8px);
+    transition: opacity .6s var(--ease), transform .8s var(--ease); }
+  .caps p b { font-family: var(--mono); font-size: 19px; color: var(--pod); font-weight: 500; margin-right: 14px; vertical-align: 3px; }
+  .caps p.show { opacity: 1; transform: none; transition-delay: .25s; }
+
+  /* ---------- 10 · Verteilung ---------- */
+  .dist .stn { position: absolute; text-align: center; width: 260px; margin-left: -130px; }
+  .dist .stn .ic { width: 50px; height: 50px; stroke-width: 1.3; color: var(--fg-2); transition: color .6s var(--ease); }
+  .dist .stn h4 { margin-top: 10px; font-size: 24px; font-weight: 600; color: var(--muted); transition: color .6s var(--ease); }
+  .dist .stn.hit .ic { color: var(--pod); }
+  .dist .stn.hit h4 { color: var(--fg); }
+  .dist .feed {
+    position: absolute; left: 520px; top: 470px; width: 380px; height: 216px; padding: 0;
+    font-family: var(--mono); font-size: 17px; line-height: 1.75; color: var(--muted);
+  }
+  .dist .feed .bar { color: var(--fg-2); }
+  .dist .feed .bar .ic { width: 18px; height: 18px; color: var(--pod); }
+  .dist .feed pre { font: inherit; padding: 12px 22px; white-space: pre; }
+  .dist .feed .newi { color: var(--fg); background: var(--ac-soft); box-shadow: -22px 0 0 var(--ac-soft), 22px 0 0 var(--ac-soft);
+    opacity: 0; transition: opacity .6s var(--ease); display: inline-block; }
+  .dist .feed .newi.show { opacity: 1; }
+  .dist .feed.hit { box-shadow: inset 0 0 0 1px rgba(255, 122, 72, .6), 0 30px 60px -30px rgba(0, 0, 0, .8); }
+  .dist .wire { fill: none; stroke: var(--line-2); stroke-width: 1.5; stroke-dasharray: var(--len); stroke-dashoffset: var(--len); }
+  .slide.on.dist .wire { stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s cubic-bezier(.45, 0, .2, 1) var(--d); }
+  .dist .loop { stroke-dasharray: 3 7; stroke-dashoffset: 0; opacity: 0; }
+  .slide.on.dist .loop { stroke-dashoffset: 0; opacity: 1; transition: opacity 1s var(--ease) var(--d); }
+  .dist .pk { fill: var(--pod); opacity: 0; }
+  .dist .pkh { fill: var(--pod); opacity: 0; }
+  .dist .upchip { position: absolute; left: 120px; top: 600px; opacity: 0; }
+  .dist .tag { position: absolute; font-size: 20px; color: var(--muted); opacity: 0; transition: opacity .7s var(--ease); white-space: nowrap; }
+  .dist .tag.show { opacity: 1; }
+  .dist .tag b { color: var(--pod); font-weight: 600; }
+  .dist .dcap { position: absolute; top: 806px; width: 330px; margin-left: -165px; text-align: center; opacity: .25; transition: opacity .8s var(--ease); }
+  .dist .dcap.show { opacity: 1; }
+  .dist .dcap b { display: block; font-family: var(--mono); font-size: 17px; color: var(--pod); font-weight: 500; }
+  .dist .dcap span { display: block; margin-top: 8px; font-size: 21px; line-height: 1.32; color: var(--fg-2); }
+
+  /* ---------- 11 · Formate ---------- */
+  .fmt .rows { position: absolute; left: 140px; width: 900px; top: 304px; list-style: none; }
+  .fmt .rows li { display: flex; align-items: center; height: 94px; border-bottom: 1px solid var(--line); gap: 24px; }
+  .fmt .rows .t { width: 440px; flex: none; }
+  .fmt .rows .t b { display: block; font-size: 32px; font-weight: 600; letter-spacing: -.01em; }
+  .fmt .rows .t span { display: block; margin-top: 2px; font-size: 21px; color: var(--muted); }
+  .fmt .mw { flex: 1; height: 54px; display: flex; align-items: center; justify-content: space-between; }
+  .fmt .mw i { display: block; width: 4px; height: 100%; border-radius: 2px; background: rgba(243, 241, 236, .18); transform: scaleY(0); }
+  .fmt .mw i.v0 { background: var(--pod); }
+  .fmt .mw i.v1 { background: rgba(243, 241, 236, .62); }
+  .fmt .mw i.v2 { background: rgba(255, 122, 72, .45); }
+  .fmt .mw i.mu { background: rgba(243, 241, 236, .14); }
+  .fmt .legend { position: absolute; left: 584px; top: 278px; font-size: 16px; color: var(--faint); }
+  .fmt .side { position: absolute; left: 1140px; width: 640px; top: 304px; }
+  .fmt .side h4 { font-size: 20px; font-weight: 500; color: var(--pod); letter-spacing: .02em; }
+  .fmt .side ul { list-style: none; margin: 12px 0 34px; }
+  .fmt .side li { font-size: 27px; line-height: 1.55; color: var(--fg-2); }
+  .fmt .cp { position: absolute; left: 140px; right: 140px; top: 818px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .fmt .cp p { font-size: 23px; line-height: 1.38; color: var(--fg-2); border-top: 1px solid var(--line-2); padding-top: 14px; }
+  .fmt .cp p b { display: block; font-size: 20px; font-weight: 500; color: var(--fg); margin-bottom: 2px; }
+
+  /* ---------- 12 · Vergleich ---------- */
+  .cmp .tbl { position: absolute; left: 140px; right: 140px; top: 300px; }
+  .cmp .th, .cmp .tr { display: grid; grid-template-columns: 300px 1fr 1fr; column-gap: 40px; }
+  .cmp .th { height: 86px; align-items: end; padding-bottom: 18px; position: relative; }
+  .cmp .th h4 { font-size: 38px; font-weight: 600; letter-spacing: -.02em; }
+  .cmp .th .m { color: var(--mail); }
+  .cmp .th .p { color: var(--pod); }
+  .cmp .th svg { position: absolute; left: 0; bottom: -1px; width: 100%; height: 30px; overflow: visible; }
+  .cmp .tr { padding: 15px 0; border-top: 1px solid var(--line); font-size: 25px; line-height: 1.25; }
+  .cmp .tr em { font-style: normal; font-size: 20px; color: var(--faint); padding-top: 3px; }
+  .cmp .tr span { color: var(--fg-2); }
+  .cmp .ln-m, .cmp .ln-p { fill: none; stroke-width: 2; stroke-linecap: round; stroke-dasharray: var(--len); stroke-dashoffset: var(--len); }
+  .cmp .ln-m { stroke: var(--mail); }
+  .cmp .ln-p { stroke: var(--pod); }
+  .slide.on.cmp .ln-m, .slide.on.cmp .ln-p { stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s var(--ease) var(--d); }
+
+  /* ---------- 13 · Ende: labels on the lines ---------- */
+  .s4 .lt { position: absolute; font-size: 22px; color: var(--muted); }
+  .s4 .lt b { font-weight: 600; }
+  .s4 .lt.m { left: 140px; top: 742px; }
+  .s4 .lt.m b { color: var(--mail); }
+  .s4 .lt.p { right: 140px; top: 726px; text-align: right; }
+  .s4 .lt.p b { color: var(--pod); }
+
+  /* ---------- hint + notes overlay ---------- */
+  .hint { position: absolute; left: 140px; bottom: 26px; font-size: 16px; color: var(--faint); letter-spacing: .02em;
+    opacity: 0; transition: opacity 1.2s var(--ease); pointer-events: none; }
+  .hint.show { opacity: 1; }
+  .hint kbd { font-family: var(--mono); font-size: 14px; padding: 1px 6px; border-radius: 4px; box-shadow: inset 0 0 0 1px var(--line-2); margin-right: 6px; }
+  #notesPanel {
+    position: fixed; left: 0; right: 0; bottom: 0; max-height: 46vh; overflow: auto; z-index: 50;
+    background: rgba(14, 14, 16, .96); box-shadow: 0 -1px 0 var(--line-2), 0 -30px 60px rgba(0, 0, 0, .5);
+    padding: 22px clamp(16px, 6vw, 96px) 28px; font-size: 17px; line-height: 1.55; color: var(--fg-2);
+    transform: translateY(100%); transition: transform .5s var(--ease); user-select: text;
+  }
+  #notesPanel.open { transform: none; }
+  #notesPanel h3 { font-size: 15px; font-weight: 500; color: var(--faint); letter-spacing: .04em; margin-bottom: 8px; }
+  #notesPanel .cols { display: grid; grid-template-columns: 3fr 2fr; gap: 40px; }
+  #notesPanel p { margin-bottom: 10px; }
+  #notesPanel ol { list-style: none; font-family: var(--mono); font-size: 13.5px; color: var(--muted); }
+  #notesPanel ol li { padding: 3px 0; border-bottom: 1px solid var(--line); }
+  @media (max-width: 800px) { #notesPanel .cols { grid-template-columns: 1fr; } }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01s !important; animation-delay: 0s !important;
       transition-duration: .01s !important; transition-delay: 0s !important; }
@@ -311,15 +633,43 @@
   </filter>
 </svg>
 
+
+<!-- Line icons (stroke = currentColor) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5 4 20z"/><path d="M13.5 7l3 3"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 2.5 2.5 7L21 3z"/><path d="M10 13l5-5"/></symbol>
+    <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="16" height="6.5" rx="1.5"/><path d="M7.5 7.25h.01M7.5 16.75h.01M11 7.25h6M11 16.75h6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M4.6 7.5h14.8M4.6 16.5h14.8"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13.5 5.8 5h12.4l2.8 8.5V19H3z"/><path d="M3 13.5h5l1.5 2.5h5l1.5-2.5h5"/></symbol>
+    <symbol id="i-open" viewBox="0 0 24 24"><path d="M3 10v10h18V10l-9-6-9 6z"/><path d="M3 10l9 6 9-6"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><path d="M21 11.5 12.6 19.9a5 5 0 0 1-7.1-7.1l8.4-8.4a3.3 3.3 0 0 1 4.7 4.7l-8.4 8.4a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8"/></symbol>
+    <symbol id="i-idea" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.6 1 2.5h6c0-.9.2-1.7 1-2.5A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M20 20l-5-5"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></symbol>
+    <symbol id="i-cut" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.6"/><circle cx="6" cy="17" r="2.6"/><path d="M8.2 8.6 20 18M8.2 15.4 20 6"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M12 10v7M9 14l3 3 3-3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7.5 8.5 12 4l4.5 4.5M4 15v5h16v-5"/></symbol>
+    <symbol id="i-apps" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-head" viewBox="0 0 24 24"><path d="M4 16v-4a8 8 0 0 1 16 0v4"/><path d="M4 15h3v6H5.5A1.5 1.5 0 0 1 4 19.5zM20 15h-3v6h1.5a1.5 1.5 0 0 0 1.5-1.5z"/></symbol>
+    <symbol id="i-rss" viewBox="0 0 24 24"><path d="M5 4.5A14.5 14.5 0 0 1 19.5 19M5 10.5A8.5 8.5 0 0 1 13.5 19"/><circle cx="6" cy="18" r="1.4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></symbol>
+    <symbol id="i-browser" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M6 7h.01M8.5 7h.01"/></symbol>
+    <symbol id="i-stream" viewBox="0 0 24 24"><path d="M5 9v6M9 6v12M13 9v6M17 4v16M21 10v4"/></symbol>
+  </defs>
+</svg>
+
 <div class="stage" id="stage" data-slide="0">
 
   <div class="meta">
     <span class="brand">Digitale Medien</span>
-    <span class="progress"><b id="num">01</b><span class="bars"><i></i><i></i><i></i><i></i></span></span>
+    <span class="progress"><b id="num">01</b><span class="bars" id="bars"></span></span>
   </div>
 
   <!-- ============ 1 · EINLEITUNG ============ -->
-  <section class="slide s1" aria-label="Einleitung">
+  <section class="slide s1" data-key="title" aria-label="Titel">
     <div class="px" style="--depth:7">
       <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true">
         <defs>
@@ -342,10 +692,16 @@
       <h1 class="h-xl r" style="--d:.4s">Digitale Medien</h1>
       <p class="sub r" style="--d:.7s">E-Mail &amp; Podcast</p>
     </div>
+    <p class="hint" id="hint"><kbd>N</kbd>Notizen · <kbd>P</kbd>Sprecheransicht · <kbd>R</kbd>Animation neu</p>
+    <aside class="notes">
+      <p>Begrüßung. Heute geht es um zwei digitale Medien, die wir fast täglich nutzen: die <b>E-Mail</b> und den <b>Podcast</b>.</p>
+      <p>Die Animation zeigt die Idee der Präsentation: Die blaue Linie startet bei einem Briefumschlag – sie steht für die E-Mail, geschriebene Nachrichten, die von A nach B laufen. Unterwegs verwandelt sie sich in eine orange Wellenform – das ist der Podcast, ein Medium zum Hören.</p>
+      <p>Ablauf: Zuerst die E-Mail – was sie ist, wie sie technisch funktioniert, woraus sie besteht und worauf man bei der Sicherheit achten muss. Danach der Podcast – wie eine Folge entsteht und wie sie zum Hörer kommt. Zum Schluss vergleichen wir beide Medien.</p>
+    </aside>
   </section>
 
   <!-- ============ 2 · E-MAIL ============ -->
-  <section class="slide s2" aria-label="E-Mail">
+  <section class="slide s2" data-key="mail" data-accent="mail" aria-label="E-Mail – Einführung">
     <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true">
       <path class="route-trail" pathLength="1000" d="M772 789 H860 Q880 789 880 769 V420 Q880 400 900 400 H1780"/>
       <path class="route-comet" pathLength="1000" d="M772 789 H860 Q880 789 880 769 V420 Q880 400 900 400 H1780"/>
@@ -374,7 +730,7 @@
       </div>
     </div>
 
-    <div class="col head"><h2 class="h-l r" style="--d:.3s">E-Mail</h2></div>
+    <div class="col head"><p class="kick kick-abs r" style="--d:.2s">Was ist eine E-Mail?</p><h2 class="h-l r" style="--d:.3s">E-Mail</h2></div>
     <ul class="col feats">
       <li class="r" style="--d:2.7s"><span class="idx">01</span>schriftliche digitale Kommunikation</li>
       <li class="r" style="--d:2.9s"><span class="idx">02</span>schnell und weltweit versendbar</li>
@@ -383,11 +739,206 @@
       <li class="r" style="--d:3.5s"><span class="idx">05</span>formell oder privat einsetzbar</li>
     </ul>
     <p class="fit r" style="--d:4s"><b>Geeignet für:</b> Nachrichten, Dokumente, Schule &amp; Beruf</p>
+    <aside class="notes">
+      <p>Eine <b>E-Mail</b> (electronic mail, „elektronische Post“) ist eine schriftliche Nachricht, die über das Internet von einem Postfach in ein anderes geschickt wird. Jeder Teilnehmer braucht dafür eine eigene Adresse, z. B. name@anbieter.de.</p>
+      <p>Die Animation zeigt das Grundprinzip: Die Nachricht wird geschrieben, abgeschickt und läuft als Linie zu den Merkmalen.</p>
+      <p><b>Merkmale:</b> schriftlich und digital; in Sekunden weltweit zugestellt; Dokumente, Bilder oder Präsentationen können angehängt werden; <b>zeitversetzt</b> – der Empfänger muss nicht gleichzeitig online sein, die Nachricht wartet im Postfach; formell (Bewerbung, Schule) oder privat (Familie, Freunde) nutzbar.</p>
+      <p><b>Einsatzbereiche:</b> In der Schule für Hausaufgaben und den Kontakt zu Lehrkräften, im Beruf für Absprachen, Bewerbungen und Dokumente, privat für Anmeldungen, Bestellungen und Kontakt.</p>
+    </aside>
   </section>
 
+  <!-- ============ 3 · WIE FUNKTIONIERT EINE E-MAIL? ============ -->
+  <section class="slide tech" data-key="tech" data-accent="mail" aria-label="Wie funktioniert eine E-Mail?">
+    <div class="hd">
+      <p class="kick r" data-cue="0">E-Mail · Technik</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Wie funktioniert eine E-Mail?</h2>
+    </div>
+    <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true">
+      <path class="seg" data-cue="2" data-off="0"   d="M290 425 H550"/>
+      <path class="seg" data-cue="2" data-off=".3"  d="M650 425 H910"/>
+      <path class="seg" data-cue="2" data-off=".6"  d="M1010 425 H1270"/>
+      <path class="seg" data-cue="2" data-off=".9"  d="M1370 425 H1630"/>
+      <path class="arrow rf" data-cue="3" d="M534 419 l8 6 -8 6 M894 419 l8 6 -8 6 M1254 419 l8 6 -8 6 M1614 419 l8 6 -8 6"/>
+      <text class="proto rf" data-cue="3" data-off="0"  x="420"  y="404" text-anchor="middle">SMTP</text>
+      <text class="proto rf" data-cue="3" data-off=".15" x="780"  y="404" text-anchor="middle">SMTP</text>
+      <text class="proto rf" data-cue="3" data-off=".3" x="1140" y="404" text-anchor="middle">SMTP</text>
+      <text class="proto pull rf" data-cue="3" data-off=".45" x="1500" y="404" text-anchor="middle">IMAP / POP3</text>
+      <path class="tdot-path" id="techPath" d="M240 425 H1680" fill="none" stroke="none"/>
+      <g class="fdot" id="techDot"><circle class="h" r="13"/><circle class="c" r="5"/></g>
+    </svg>
+    <div class="st r" data-cue="1" data-off="0"   style="left:240px"><svg class="ic"><use href="#i-laptop"/></svg><h4>Absender</h4><p>Mailprogramm<br>oder Webmail</p></div>
+    <div class="st r" data-cue="1" data-off=".3"  style="left:600px"><svg class="ic"><use href="#i-server"/></svg><h4>Mailserver</h4><p>Postausgang des<br>eigenen Anbieters</p></div>
+    <div class="st r" data-cue="1" data-off=".6"  style="left:960px"><svg class="ic"><use href="#i-globe"/></svg><h4>Internet</h4><p>Ziel steht hinter dem @:<br>name@<b style="color:var(--mail);font-weight:500">schule.de</b></p></div>
+    <div class="st r" data-cue="1" data-off=".9"  style="left:1320px"><svg class="ic"><use href="#i-server"/></svg><h4>Empfänger-Server</h4><p>legt die Mail<br>ins Postfach</p></div>
+    <div class="st r" data-cue="1" data-off="1.2" style="left:1680px"><svg class="ic"><use href="#i-laptop"/></svg><h4>Empfänger</h4><p>ruft das Postfach<br>ab</p></div>
+
+    <div class="cols">
+      <div class="r" data-cue="4" data-off="0"><h4>SMTP <span>Versenden</span></h4><p>bringt die Nachricht vom Mailprogramm zum Server – und von Server zu Server.</p></div>
+      <div class="r" data-cue="4" data-off=".5"><h4>IMAP <span>Abrufen</span></h4><p>Mails bleiben auf dem Server und sind auf allen Geräten gleich.</p></div>
+      <div class="r" data-cue="4" data-off="1"><h4>POP3 <span>Abrufen</span></h4><p>Mails werden auf ein Gerät geladen und meist vom Server gelöscht.</p></div>
+    </div>
+
+    <aside class="notes">
+      <p>Wenn man eine E-Mail verschickt, geht sie nicht direkt zum Computer des Empfängers. Sie läuft über mehrere Stationen – ähnlich wie ein Brief über Postämter.</p>
+      <p><b>1. Absender:</b> Man schreibt im Mailprogramm (z. B. Outlook, Thunderbird, Mail-App) oder im Browser (Webmail). <b>2. Mailserver:</b> Das Programm übergibt die Nachricht an den Postausgangsserver des eigenen Anbieters. Dafür nutzt es <b>SMTP</b> – Simple Mail Transfer Protocol.</p>
+      <p><b>3. Internet:</b> Der Server schaut auf den Teil hinter dem @, die <b>Domain</b> (z. B. schule.de). Über das Domain-Namen-System (DNS) findet er heraus, welcher Mailserver für diese Domain zuständig ist, und schickt die Mail ebenfalls per SMTP dorthin. <b>4. Empfänger-Server:</b> Er nimmt die Mail an und legt sie im Postfach ab. <b>5. Empfänger:</b> Er holt die Mail ab.</p>
+      <p>Beim Abrufen gibt es zwei Verfahren: Mit <b>IMAP</b> bleiben die Mails auf dem Server – Handy, Laptop und Tablet zeigen dasselbe Postfach. Mit <b>POP3</b> werden die Mails auf ein Gerät heruntergeladen und meist vom Server gelöscht. Heute ist IMAP Standard.</p>
+      <p>Merksatz: <b>SMTP zum Senden, IMAP oder POP3 zum Abrufen.</b></p>
+    </aside>
+  </section>
+
+  <!-- ============ 4 · E-MAIL-VERSAND ALS ABLAUF ============ -->
+  <section class="slide mailflow" data-key="mailflow" data-accent="mail" aria-label="Der Weg einer E-Mail">
+    <div class="hd">
+      <p class="kick r" data-cue="0">E-Mail · Ablauf</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Was passiert beim Senden?</h2>
+    </div>
+
+    <div class="pane composer r" data-cue="1" aria-hidden="true">
+      <div class="bar"><span>Neue Nachricht</span><span>Absender</span></div>
+      <div class="row"><em>An</em><span id="mfTo"></span><i class="caret" id="mfCaretTo"></i></div>
+      <div class="row"><em>Betreff</em><span id="mfSub"></span><i class="caret" id="mfCaretSub"></i></div>
+      <div class="lines">
+        <i style="width:86%" data-cue="4" data-off="0"></i>
+        <i style="width:92%" data-cue="4" data-off=".35"></i>
+        <i style="width:58%" data-cue="4" data-off=".7"></i>
+      </div>
+      <div class="chip r" data-cue="7"><svg class="ic"><use href="#i-clip"/></svg>Dokument.pdf</div>
+      <div class="send" data-cue="8"><span class="go" data-cue="9" data-off="-.25">Senden</span><span class="done" data-cue="9">Gesendet ✓</span></div>
+    </div>
+
+    <div class="ticker r" data-cue="1" data-off=".2">
+      <p class="lbl">SCHRITT</p>
+      <p class="no"><span id="mfNo">00</span><small>/ 11</small></p>
+      <p class="txt" id="mfTxt">&nbsp;</p>
+      <button class="replay" data-replay>↻ Ablauf neu starten</button>
+    </div>
+
+    <div class="pane inbox r" data-cue="1" data-off=".1" aria-hidden="true">
+      <div class="bar"><span>Posteingang</span><span>Empfänger</span></div>
+      <div class="list">
+        <div class="item new r" data-cue="13" data-off="1.2"><i class="dotn"></i><b>Max Muster</b><span>Unterlagen</span><svg class="ic"><use href="#i-clip"/></svg></div>
+        <div class="item old"><b style="color:var(--faint)">Schulleitung</b><i style="width:60%"></i></div>
+        <div class="item old"><b style="color:var(--faint)">Sportverein</b><i style="width:44%"></i></div>
+      </div>
+      <div class="opened r" data-cue="14">
+        <h5>Unterlagen</h5>
+        <small>von max.muster@mail.de · an klasse@schule.de</small>
+        <div class="lines">
+          <i style="width:84%" data-cue="14" data-off=".3"></i>
+          <i style="width:90%" data-cue="14" data-off=".45"></i>
+          <i style="width:52%" data-cue="14" data-off=".6"></i>
+        </div>
+        <div class="chip"><svg class="ic"><use href="#i-clip"/></svg>Dokument.pdf</div>
+      </div>
+    </div>
+
+    <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true" id="mfSvg"></svg>
+    <div class="px" style="--depth:0" id="mfLayer"></div>
+
+    <aside class="notes">
+      <p>Diese Folie zeigt den kompletten Weg einer E-Mail in elf Schritten. Am besten erzählt man parallel zur Animation – der Zähler in der Mitte zeigt immer, welcher Schritt gerade läuft.</p>
+      <p><b>Schritte 1–4 (Verfassen):</b> Zuerst wird die Nachricht geschrieben, dann die Empfängeradresse eingetragen, ein aussagekräftiger Betreff ergänzt und eine Datei angehängt. Bis hierhin liegt alles nur auf dem eigenen Gerät.</p>
+      <p><b>Schritt 5–6 (Senden):</b> Mit dem Klick auf „Senden“ verlässt die Mail den Computer. Das Mailprogramm baut eine Verbindung zum Mailserver auf – heute fast immer verschlüsselt (TLS).</p>
+      <p><b>Schritt 7–8 (Mailserver, Weiterleitung):</b> Der eigene Mailserver nimmt die Mail per SMTP an, prüft sie und sucht über die Domain den zuständigen Server des Empfängers. Dann leitet er sie über das Internet weiter.</p>
+      <p><b>Schritt 9–11 (Empfang):</b> Der Empfänger-Server speichert die Mail im Postfach. Beim Empfänger erscheint eine neue Nachricht – er ruft sie per IMAP oder POP3 ab und öffnet sie.</p>
+      <p>Wichtig: In Wirklichkeit dauert das nur Sekunden. Ist die Adresse falsch, kommt eine automatische Fehlermeldung zurück („unzustellbar“). Mit der Taste <b>R</b> oder dem Knopf „Ablauf neu starten“ lässt sich die Animation wiederholen.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 5 · BESTANDTEILE ============ -->
+  <section class="slide anat" data-key="anat" data-accent="mail" aria-label="Bestandteile einer E-Mail">
+    <div class="hd">
+      <p class="kick r" data-cue="0">E-Mail · Aufbau</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Woraus besteht eine E-Mail?</h2>
+    </div>
+
+    <div class="pane win r" data-cue="1" aria-hidden="true">
+      <div class="bar"><span>Neue Nachricht</span></div>
+      <div class="row fld" data-cue="2"><em>Von</em><span>max.muster@mail.de</span></div>
+      <div class="row fld" data-cue="3"><em>An</em><span>frau.weber@schule.de</span></div>
+      <div class="row fld" data-cue="4"><em>CC</em><span>klassensprecher@schule.de</span></div>
+      <div class="row fld" data-cue="5"><em>BCC</em><span>eltern@mail.de</span></div>
+      <div class="row fld" data-cue="6"><em>Betreff</em><span>Referat Digitale Medien</span></div>
+      <div class="body fld" data-cue="7">
+        <p>Sehr geehrte Frau Weber,</p>
+        <div class="lines"><i style="width:90%;--d:0s"></i><i style="width:80%;--d:.1s"></i><i style="width:46%;--d:.2s"></i></div>
+        <p>Viele Grüße</p>
+      </div>
+      <div class="sig fld" data-cue="8">Max Muster · Klasse 9b · max.muster@mail.de</div>
+      <div class="att fld" data-cue="9"><span class="chip"><svg class="ic"><use href="#i-clip"/></svg>Referat.pdf · 2 MB</span></div>
+    </div>
+
+    <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true">
+      <g id="anatLeads"></g>
+    </svg>
+    <div id="anatAnn"></div>
+
+    <aside class="notes">
+      <p>Jede E-Mail besteht aus einem <b>Kopf</b> (Von, An, CC, BCC, Betreff) und einem <b>Inhalt</b> (Text, Signatur, Anhänge).</p>
+      <p><b>Adresse:</b> Sie besteht aus Benutzername, dem @ („at“) und der Domain des Anbieters – z. B. max.muster@mail.de. Die Domain bestimmt, welcher Server die Mail bekommt. <b>Von / An:</b> Absender und Empfänger – bei „An“ können auch mehrere Adressen stehen.</p>
+      <p><b>CC</b> (Carbon Copy) heißt Kopie: Alle sehen, wer die Mail außerdem bekommt. <b>BCC</b> (Blind Carbon Copy) ist eine Blindkopie: Diese Empfänger bleiben für alle anderen unsichtbar. Beispiel: Eine Rundmail an viele Eltern gehört in BCC, damit nicht jeder alle Adressen sieht – das ist auch Datenschutz.</p>
+      <p><b>Betreff:</b> kurz und eindeutig, damit der Empfänger sofort weiß, worum es geht. <b>Text:</b> Anrede, Inhalt, Gruß. In Schule und Beruf formell („Sehr geehrte Frau Weber“), privat locker („Hallo“). <b>Signatur:</b> Name und Kontaktdaten, die automatisch unter jede Mail gesetzt werden.</p>
+      <p><b>Anhänge:</b> Dateien wie PDF, Bilder oder Präsentationen. Viele Anbieter begrenzen die Größe auf etwa 20–25 MB – große Dateien verschickt man besser als Cloud-Link.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 6 · SICHERHEIT ============ -->
+  <section class="slide sec" data-key="sec" data-accent="mail" aria-label="Sicherheit: Spam und Phishing">
+    <div class="hd">
+      <p class="kick r" data-cue="0">E-Mail · Sicherheit</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Wie erkenne ich Spam &amp; Phishing?</h2>
+    </div>
+
+    <div class="pane win r" data-cue="1" aria-hidden="true">
+      <div class="bar"><span>Posteingang · Beispiel</span><span>verdächtig</span></div>
+      <div class="row"><em>Von</em><span class="flag" data-cue="3">Sicherheitsteam &lt;info@konto-check24.xyz&gt;</span></div>
+      <div class="row"><em>Betreff</em><span class="flag" data-cue="4">DRINGEND: Ihr Konto wird gesperrt!</span></div>
+      <div class="body">
+        <span class="flag" data-cue="5">Sehr geehrter Kunde,</span><br>
+        bestätigen Sie innerhalb von 24 Stunden Ihre Daten,<br>sonst wird Ihr Zugang gelöscht.<br>
+        <span class="cta flag" data-cue="6">Jetzt bestätigen</span><span class="url">→ konto-check24.xyz/login</span>
+      </div>
+      <div class="att"><span class="chip flag" data-cue="7"><svg class="ic"><use href="#i-clip"/></svg>Rechnung.pdf.exe</span></div>
+      <i class="mk" data-cue="3" style="left:650px;top:56px">1</i>
+      <i class="mk" data-cue="4" style="left:650px;top:102px">2</i>
+      <i class="mk" data-cue="5" style="left:250px;top:162px">3</i>
+      <i class="mk" data-cue="6" style="left:480px;top:268px">4</i>
+      <i class="mk" data-cue="7" style="left:250px;top:418px">5</i>
+    </div>
+
+    <div class="defs">
+      <p class="r" data-cue="2"><b>Spam</b>unerwünschte Massen-Werbung, meist im Spam-Ordner.</p>
+      <p class="r" data-cue="2" data-off=".3"><b>Phishing</b>gefälschte Mails, die Passwörter oder Daten stehlen.</p>
+    </div>
+    <ul class="signs">
+      <li class="cap r" data-cue="3" data-off="-.3" style="border:0;padding:0">Warnzeichen</li>
+      <li class="r" data-cue="3"><span class="idx">01</span>fremde oder verdrehte Absenderadresse</li>
+      <li class="r" data-cue="4"><span class="idx">02</span>Zeitdruck und Drohungen</li>
+      <li class="r" data-cue="5"><span class="idx">03</span>unpersönliche Anrede</li>
+      <li class="r" data-cue="6"><span class="idx">04</span>Link führt auf eine fremde Seite</li>
+      <li class="r" data-cue="7"><span class="idx">05</span>gefährlicher Anhang (.exe, .zip)</li>
+    </ul>
+
+    <div class="protect">
+      <div class="r" data-cue="8" data-off="0"><b>Sichere Passwörter</b><span>lang, für jeden Dienst anders, mit Zwei-Faktor</span></div>
+      <div class="r" data-cue="8" data-off=".2"><b>Sichere Anhänge</b><span>nur von bekannten Absendern öffnen</span></div>
+      <div class="r" data-cue="8" data-off=".4"><b>Links prüfen</b><span>Adresse vor dem Klick ansehen</span></div>
+      <div class="r" data-cue="8" data-off=".6"><b>Datenschutz</b><span>keine sensiblen Daten unverschlüsselt senden</span></div>
+    </div>
+
+    <aside class="notes">
+      <p><b>Spam</b> sind unerwünschte Massen-Mails, meistens Werbung. Mailanbieter filtern sie automatisch in den Spam-Ordner. <b>Phishing</b> ist gefährlicher: Betrüger fälschen Mails von Banken, Paketdiensten oder Shops, um an Passwörter, Kontodaten oder persönliche Informationen zu kommen („Passwort-Fishing“).</p>
+      <p>Die Beispiel-Mail zeigt fünf typische Warnzeichen: <b>1</b> eine seltsame Absenderadresse mit fremder Domain, <b>2</b> Zeitdruck und Drohung im Betreff, <b>3</b> eine unpersönliche Anrede („Sehr geehrter Kunde“), <b>4</b> ein Button, dessen Link auf eine fremde Seite führt – mit der Maus darüberfahren zeigt die echte Adresse – und <b>5</b> ein Anhang mit doppelter Endung: „.pdf.exe“ ist in Wahrheit ein Programm.</p>
+      <p><b>Schutz:</b> Passwörter sollten lang sein (mindestens 12 Zeichen, gerne ein Satz), für jeden Dienst anders und in einem Passwort-Manager liegen. Zusätzlich die Zwei-Faktor-Anmeldung einschalten. Anhänge nur öffnen, wenn man den Absender kennt und die Datei erwartet – besonders vorsichtig bei .exe, .zip oder Office-Dateien mit Makros.</p>
+      <p><b>Datenschutz:</b> Eine normale E-Mail ist wie eine Postkarte – auf dem Weg ist sie nicht immer geschützt. Passwörter, Gesundheits- oder Kontodaten gehören nicht unverschlüsselt in eine Mail; dafür gibt es Ende-zu-Ende-Verschlüsselung (S/MIME, PGP). Seriöse Banken fragen nie per Mail nach Passwörtern. Bei Verdacht: nicht antworten, nichts anklicken, löschen oder melden.</p>
+    </aside>
+  </section>
+
+
   <!-- ============ 3 · PODCAST ============ -->
-  <section class="slide s3" aria-label="Podcast">
-    <div class="head"><h2 class="h-l r" style="--d:.2s">Podcast</h2></div>
+  <section class="slide s3" data-key="pod" data-accent="pod" aria-label="Podcast – Einführung">
+    <div class="head"><p class="kick kick-abs r" style="--d:.15s">Was ist ein Podcast?</p><h2 class="h-l r" style="--d:.2s">Podcast</h2></div>
     <p class="use r" style="--d:.6s"><span>Nützlich für</span><b>Wissen, Nachrichten, Unterhaltung &amp; Lernen</b></p>
 
     <div class="px" style="--depth:6">
@@ -409,10 +960,209 @@
       <li class="r" style="--d:2.4s"><span class="idx">05</span>über Plattformen und Apps verfügbar</li>
     </ul>
     <p class="caveat r" style="--d:3.2s"><b>Aber:</b> Nicht jeder Podcast liefert sinnvolle Inhalte.</p>
+    <aside class="notes">
+      <p>Ein <b>Podcast</b> ist eine Serie von Audiodateien – sogenannten Folgen oder Episoden –, die man im Internet jederzeit abrufen kann. Der Name setzt sich aus „iPod“ und „Broadcast“ (Rundfunk) zusammen.</p>
+      <p>Anders als beim Radio entscheidet der Hörer selbst, wann und wo er hört („on demand“). Podcasts erscheinen meist regelmäßig zu einem festen Thema und können abonniert werden – neue Folgen kommen dann automatisch.</p>
+      <p>Die Wellenform zeigt das Wesentliche: Ein Podcast ist Ton. Die Abspielmarke läuft, die gehörten Teile werden orange.</p>
+      <p>Kritisch: Jeder kann einen Podcast veröffentlichen, es gibt keine Redaktion, die prüft. Darum sollte man sich fragen: Wer spricht? Welche Quellen gibt es? Ist es Werbung?</p>
+    </aside>
   </section>
 
+  <!-- ============ 8 · WIE ENTSTEHT EIN PODCAST? ============ -->
+  <section class="slide prod" data-key="prod" data-accent="pod" aria-label="Wie entsteht ein Podcast?">
+    <div class="hd">
+      <p class="kick r" data-cue="0">Podcast · Produktion</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Wie entsteht eine Folge?</h2>
+    </div>
+
+    <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true" id="prodSvg">
+      <g id="prodMarks"></g>
+      <g id="prodVoice"></g>
+      <g id="prodMusic"></g>
+      <line id="prodHead" x1="0" y1="476" x2="0" y2="724" stroke="rgba(243,241,236,.7)" stroke-width="1" opacity="0"/>
+    </svg>
+    <div class="px" style="--depth:0" id="prodLayer"></div>
+
+    <div class="mic r" data-cue="2"><svg class="ic"><use href="#i-mic"/></svg></div>
+    <p class="rec" id="prodRec">REC</p>
+    <p class="trk rf" data-cue="2" style="top:476px">Stimme</p>
+    <p class="trk rf" data-cue="7" style="top:744px">Musik</p>
+
+    <div class="file" id="prodFile">
+      <div class="nm"><svg class="ic"><use href="#i-file"/></svg>Folge_12.mp3</div>
+      <small id="prodFileState">wird exportiert …</small>
+      <div class="pb"><i id="prodBar"></i></div>
+    </div>
+
+    <div class="caps" id="prodCaps">
+      <p><b>01</b>Aufnahme: Mikrofon nah am Mund, ruhiger Raum – frei sprechen oder nach Skript.</p>
+      <p><b>02</b>Die Rohaufnahme enthält Versprecher, lange Pausen und Störgeräusche.</p>
+      <p><b>03</b>Im Audioschnitt werden Fehler entfernt und die Lautstärke angeglichen.</p>
+      <p><b>04</b>Intro, Hintergrundmusik und Soundeffekte geben der Folge Struktur.</p>
+      <p><b>05</b>Export als fertige Audiodatei, meist MP3 – bereit für den Upload.</p>
+    </div>
+
+    <aside class="notes">
+      <p>Hier sieht man, wie aus einer Aufnahme eine fertige Folge wird. Die Wellenform verändert sich bei jeder Station.</p>
+      <p><b>01 Mikrofon / Aufnahme:</b> Ein USB-Mikrofon reicht für den Anfang, zur Not auch das Smartphone. Wichtig sind 10–20 cm Abstand zum Mund, ein Poppschutz gegen harte „P“- und „B“-Laute und ein ruhiger Raum – Teppiche, Vorhänge oder ein Kleiderschrank schlucken Hall.</p>
+      <p><b>02 Rohaufnahme:</b> Die Aufnahme ist nie perfekt: Versprecher, lange Pausen, Husten, ein vorbeifahrendes Auto. Diese Stellen werden markiert.</p>
+      <p><b>03 Audioschnitt:</b> Mit Programmen wie Audacity (kostenlos) oder GarageBand werden die markierten Stellen herausgeschnitten – die Lücken schließen sich. Danach wird die Lautstärke angeglichen (Normalisieren) und Rauschen reduziert.</p>
+      <p><b>04 Musik &amp; Effekte:</b> Ein kurzes Intro und Outro machen die Folge wiedererkennbar, leise Hintergrundmusik und Soundeffekte trennen Abschnitte. Achtung Urheberrecht: nur lizenzfreie oder selbst gemachte Musik verwenden.</p>
+      <p><b>05 Export:</b> Am Ende werden alle Spuren zu einer Datei zusammengemischt, meist als MP3 – gute Qualität bei kleiner Dateigröße. Dazu kommen Titel, Folgennummer und ein Cover-Bild.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 9 · PRODUKTION ALS ABLAUF ============ -->
+  <section class="slide pflow" data-key="pflow" data-accent="pod" aria-label="Podcast-Produktion als Ablauf">
+    <div class="hd">
+      <p class="kick r" data-cue="0">Podcast · Ablauf</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Von der Idee zum Hörer</h2>
+    </div>
+    <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true" id="pfSvg"></svg>
+    <div class="px" style="--depth:0" id="pfLayer"></div>
+    <button class="replay rf" data-cue="1" data-replay style="position:absolute;left:134px;bottom:88px">↻ Ablauf neu starten</button>
+
+    <aside class="notes">
+      <p>Diese Folie zeigt den gesamten Weg einer Podcast-Folge in acht Stationen. Der Punkt wandert entlang der Linie; an jeder Station leuchtet der Punkt auf und die Erklärung erscheint.</p>
+      <p><b>01 Idee:</b> Thema, Zielgruppe, Format und Länge festlegen – worüber spreche ich, für wen? <b>02 Recherche:</b> Fakten sammeln, Quellen prüfen, ein Skript oder Stichpunkte schreiben, eventuell Gäste einladen.</p>
+      <p><b>03 Aufnahme</b> und <b>04 Schnitt</b> haben wir gerade gesehen. <b>05 Export:</b> Alles wird zu einer MP3-Datei zusammengefügt.</p>
+      <p><b>06 Veröffentlichung:</b> Die Datei wird bei einem Hosting-Dienst hochgeladen, zusammen mit Titel, Beschreibung (Shownotes) und Cover. <b>07 Plattform:</b> Podcast-Apps und Streaming-Dienste übernehmen die neue Folge automatisch. <b>08 Hörer:</b> Hören, abonnieren, bewerten, Feedback geben.</p>
+      <p>Wichtig: Der größte Teil der Arbeit passiert vor und nach der Aufnahme – Planung und Schnitt dauern oft länger als das Sprechen selbst.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 10 · WIE KOMMT DER PODCAST ZUM HÖRER? ============ -->
+  <section class="slide dist" data-key="dist" data-accent="pod" aria-label="Wie kommt der Podcast zum Hörer?">
+    <div class="hd">
+      <p class="kick r" data-cue="0">Podcast · Verbreitung</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Wie kommt der Podcast zum Hörer?</h2>
+    </div>
+
+    <svg class="full" viewBox="0 0 1920 1080" aria-hidden="true">
+      <path class="wire" id="dw0" data-cue="1" data-off="0" d="M336 578 H520"/>
+      <path class="wire" id="dw1" data-cue="1" data-off=".3" d="M900 578 C1010 578 1040 448 1162 448"/>
+      <path class="wire" id="dw2" data-cue="1" data-off=".4" d="M900 578 H1162"/>
+      <path class="wire" id="dw3" data-cue="1" data-off=".5" d="M900 578 C1010 578 1040 708 1162 708"/>
+      <path class="wire" id="dw4" data-cue="1" data-off=".7" d="M1238 448 C1420 448 1440 578 1586 578"/>
+      <path class="wire" id="dw5" data-cue="1" data-off=".8" d="M1238 578 H1586"/>
+      <path class="wire" id="dw6" data-cue="1" data-off=".9" d="M1238 708 C1420 708 1440 578 1586 578"/>
+      <path class="wire loop" id="dw7" data-cue="7" d="M1620 540 C1620 300 710 300 710 466"/>
+      <g id="distPk"></g>
+    </svg>
+
+    <div class="chip upchip" id="distUp"><svg class="ic"><use href="#i-file"/></svg>Folge_12.mp3</div>
+    <div class="stn r" id="dsHost" data-cue="1" style="left:300px;top:550px"><svg class="ic"><use href="#i-server"/></svg><h4>Hosting</h4></div>
+    <div class="pane feed r" id="dsFeed" data-cue="1" data-off=".2">
+      <div class="bar"><span style="display:flex;gap:10px;align-items:center"><svg class="ic"><use href="#i-rss"/></svg>RSS-Feed</span><span>feed.xml</span></div>
+<pre>&lt;channel&gt; Schul-Podcast
+  &lt;item&gt; Folge 11 &lt;/item&gt;
+  <span class="newi" id="dsNew">&lt;item&gt; Folge 12 &lt;/item&gt;</span>
+&lt;/channel&gt;</pre>
+    </div>
+    <div class="stn r" id="dsP0" data-cue="1" data-off=".5" style="left:1200px;top:420px"><svg class="ic"><use href="#i-apps"/></svg><h4>Podcast-Apps</h4></div>
+    <div class="stn r" id="dsP1" data-cue="1" data-off=".6" style="left:1200px;top:550px"><svg class="ic"><use href="#i-stream"/></svg><h4>Streaming-Dienste</h4></div>
+    <div class="stn r" id="dsP2" data-cue="1" data-off=".7" style="left:1200px;top:680px"><svg class="ic"><use href="#i-browser"/></svg><h4>Website</h4></div>
+    <div class="stn r" id="dsL" data-cue="1" data-off=".9" style="left:1620px;top:550px"><svg class="ic"><use href="#i-head"/></svg><h4>Hörer</h4></div>
+
+    <p class="tag" id="dtMode" style="right:140px;top:668px"><b>Streaming</b> sofort · <b>Download</b> offline</p>
+    <p class="tag" id="dtSub" style="left:1165px;top:316px;transform:translateX(-50%)"><b>Abonnieren</b> – neue Folgen kommen automatisch</p>
+
+    <div class="dcap" id="dc0" style="left:300px"><b>Hosting</b><span>speichert die Audiodateien im Internet</span></div>
+    <div class="dcap" id="dc1" style="left:710px"><b>RSS-Feed</b><span>automatisches Inhaltsverzeichnis aller Folgen</span></div>
+    <div class="dcap" id="dc2" style="left:1200px"><b>Plattformen</b><span>lesen den Feed und zeigen neue Folgen an</span></div>
+    <div class="dcap" id="dc3" style="left:1615px"><b>Hörer</b><span>streamt, lädt herunter, abonniert</span></div>
+
+    <aside class="notes">
+      <p>Nach dem Export muss die Folge zu den Hörern kommen. Dafür gibt es eine geschickte Technik: einmal hochladen – überall verfügbar.</p>
+      <p><b>Hosting:</b> Die MP3-Datei wird bei einem Podcast-Hoster hochgeladen. Das ist ein Speicherdienst im Internet, der die Dateien bereitstellt und automatisch den RSS-Feed erstellt.</p>
+      <p><b>RSS-Feed:</b> RSS steht für „Really Simple Syndication“. Der Feed ist eine Textdatei (XML) mit einer Liste aller Folgen – Titel, Beschreibung und Link zur Audiodatei. Kommt eine neue Folge dazu, bekommt der Feed einen neuen Eintrag.</p>
+      <p><b>Plattformen:</b> Podcast-Apps, Streaming-Dienste und Websites lesen den Feed regelmäßig. Sobald dort eine neue Folge steht, erscheint sie überall gleichzeitig – der Podcaster muss sie nicht einzeln hochladen.</p>
+      <p><b>Hörer:</b> Beim <b>Streaming</b> wird die Folge direkt abgespielt, man braucht Internet. Beim <b>Download</b> landet die Datei auf dem Gerät und man kann offline hören, z. B. im Zug. Wer <b>abonniert</b>, bekommt jede neue Folge automatisch angezeigt oder heruntergeladen – die App prüft dafür den Feed. Die meisten Podcasts sind kostenlos und finanzieren sich über Werbung oder Spenden.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 11 · FORMATE & ZIELGRUPPEN ============ -->
+  <section class="slide fmt" data-key="fmt" data-accent="pod" aria-label="Formate und Zielgruppen">
+    <div class="hd">
+      <p class="kick r" data-cue="0">Podcast · Formate</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">Welche Podcasts gibt es – für wen?</h2>
+    </div>
+
+    <p class="legend rf" data-cue="1">Wellenform = Sprecheranteile</p>
+    <ul class="rows">
+      <li class="r" data-cue="1" data-off="0"><div class="t"><b>Interview</b><span>Moderator fragt, Gast antwortet</span></div><div class="mw" data-pat="interview"></div></li>
+      <li class="r" data-cue="1" data-off=".35"><div class="t"><b>Solo</b><span>eine Person erklärt oder erzählt</span></div><div class="mw" data-pat="solo"></div></li>
+      <li class="r" data-cue="1" data-off=".7"><div class="t"><b>Gesprächsrunde</b><span>mehrere Personen diskutieren</span></div><div class="mw" data-pat="round"></div></li>
+      <li class="r" data-cue="1" data-off="1.05"><div class="t"><b>Storytelling</b><span>erzählte Geschichte mit Musik</span></div><div class="mw" data-pat="story"></div></li>
+      <li class="r" data-cue="1" data-off="1.4"><div class="t"><b>Nachrichten</b><span>kurz, aktuell, regelmäßig</span></div><div class="mw" data-pat="news"></div></li>
+    </ul>
+
+    <div class="side">
+      <h4 class="r" data-cue="2">Zielgruppen</h4>
+      <ul>
+        <li class="r" data-cue="2" data-off=".1">Schüler &amp; Studierende</li>
+        <li class="r" data-cue="2" data-off=".2">Pendler &amp; Berufstätige</li>
+        <li class="r" data-cue="2" data-off=".3">Fans eines Hobbys</li>
+        <li class="r" data-cue="2" data-off=".4">Kinder &amp; Familien</li>
+      </ul>
+      <h4 class="r" data-cue="3">Einsatzbereiche</h4>
+      <ul>
+        <li class="r" data-cue="3" data-off=".1">Lernen &amp; Bildung</li>
+        <li class="r" data-cue="3" data-off=".2">Nachrichten &amp; Wissen</li>
+        <li class="r" data-cue="3" data-off=".3">Unterhaltung · Unternehmen</li>
+      </ul>
+    </div>
+
+    <div class="cp">
+      <p class="r" data-cue="4"><b>Chancen</b>Jeder kann veröffentlichen, nebenbei hörbar, auch Nischenthemen.</p>
+      <p class="r" data-cue="4" data-off=".3"><b>Probleme</b>Inhalte oft ungeprüft, Falschinformation möglich, schwer durchsuchbar.</p>
+    </div>
+
+    <aside class="notes">
+      <p>Podcasts gibt es in vielen Formaten. Die kleinen Wellenformen zeigen, wer wie viel spricht. <b>Interview:</b> Moderator und Gast wechseln sich ab. <b>Solo:</b> Eine Person erklärt ein Thema – z. B. Lern-Podcasts. <b>Gesprächsrunde:</b> mehrere Stimmen, schnelle Wechsel, oft locker. <b>Storytelling:</b> Eine Geschichte wird erzählt, mit Musik und Geräuschen – ähnlich wie ein Hörspiel, z. B. True-Crime oder Geschichts-Podcasts. <b>Nachrichten:</b> kurze, tägliche Folgen mit dem Wichtigsten.</p>
+      <p><b>Zielgruppen:</b> Schüler und Studierende zum Lernen, Pendler auf dem Weg zur Arbeit, Menschen mit einem bestimmten Hobby, Kinder mit Hörgeschichten. <b>Einsatz:</b> Bildung, Nachrichten, Unterhaltung – und Unternehmen nutzen Podcasts für Marketing oder interne Kommunikation.</p>
+      <p><b>Chancen:</b> Die Hürde ist niedrig – jeder mit Mikrofon kann einen Podcast starten. Man kann nebenbei hören (Sport, Bus, Hausarbeit), und auch sehr spezielle Themen finden ihr Publikum. Die Stimme schafft Nähe.</p>
+      <p><b>Probleme:</b> Es gibt keine Redaktion, die Inhalte prüft – Meinungen werden manchmal wie Fakten präsentiert, Falschinformationen verbreiten sich. Lange Folgen sind schwer durchsuchbar, und Werbung ist nicht immer klar erkennbar. Deshalb gilt: Wer spricht? Welche Quellen werden genannt?</p>
+    </aside>
+  </section>
+
+  <!-- ============ 12 · VERGLEICH ============ -->
+  <section class="slide cmp" data-key="cmp" aria-label="E-Mail und Podcast im Vergleich">
+    <div class="hd">
+      <p class="kick r" data-cue="0">Vergleich</p>
+      <h2 class="h-m r" data-cue="0" data-off=".1">E-Mail und Podcast im Vergleich</h2>
+    </div>
+    <div class="tbl">
+      <div class="th">
+        <span></span>
+        <h4 class="m r" data-cue="1">E-Mail</h4>
+        <h4 class="p r" data-cue="1" data-off=".2">Podcast</h4>
+        <svg viewBox="0 0 1640 30" preserveAspectRatio="none" aria-hidden="true">
+          <path class="ln-m" data-cue="1" data-off=".3" d="M340 29 H930"/>
+          <path class="ln-p" data-cue="1" data-off=".5" id="cmpWave" d="M970 29 H1640"/>
+        </svg>
+      </div>
+      <div class="tr r" data-cue="2" data-off="0"><em>Form</em><span>Text mit Anhängen</span><span>Audio in Folgen</span></div>
+      <div class="tr r" data-cue="2" data-off=".35"><em>Richtung</em><span>Austausch zwischen Personen</span><span>einer spricht, viele hören</span></div>
+      <div class="tr r" data-cue="2" data-off=".7"><em>Zeit</em><span>zeitversetzt, in Sekunden zugestellt</span><span>jederzeit abrufbar</span></div>
+      <div class="tr r" data-cue="2" data-off="1.05"><em>Technik</em><span>Mailserver · SMTP · IMAP / POP3</span><span>Hosting · RSS-Feed · Apps</span></div>
+      <div class="tr r" data-cue="2" data-off="1.4"><em>Vorteile</em><span>schnell, kostenlos, Dokumente teilbar</span><span>flexibel, nebenbei hörbar, vielfältig</span></div>
+      <div class="tr r" data-cue="2" data-off="1.75"><em>Nachteile</em><span>Spam &amp; Phishing, Informationsflut</span><span>ungeprüft, keine direkte Rückfrage</span></div>
+      <div class="tr r" data-cue="2" data-off="2.1"><em>Einsatz</em><span>Schule, Beruf, privat</span><span>Lernen, Nachrichten, Unterhaltung</span></div>
+    </div>
+
+    <aside class="notes">
+      <p>Zum Schluss legen wir beide Medien nebeneinander. <b>Form:</b> Die E-Mail ist geschriebener Text mit Anhängen, der Podcast ist gesprochenes Audio in Folgen.</p>
+      <p><b>Richtung:</b> Die E-Mail ist ein Austausch – man kann direkt antworten. Beim Podcast spricht einer und viele hören zu; Rückmeldung gibt es höchstens über Kommentare oder Bewertungen.</p>
+      <p><b>Zeit:</b> Beide sind zeitversetzt nutzbar. Die E-Mail kommt in Sekunden an und wartet im Postfach, der Podcast kann jederzeit abgerufen werden. <b>Technik:</b> E-Mail läuft über Mailserver mit SMTP und IMAP/POP3, der Podcast über Hosting und RSS-Feed.</p>
+      <p><b>Vorteile:</b> E-Mail ist schnell, kostenlos und eignet sich für Dokumente; Podcasts sind flexibel und nebenbei hörbar. <b>Nachteile:</b> Bei E-Mails Spam, Phishing und zu viele Nachrichten; bei Podcasts ungeprüfte Inhalte und keine direkte Rückfrage.</p>
+      <p>Gemeinsam ist beiden: Man braucht <b>Medienkompetenz</b> – bei der E-Mail, um Betrug zu erkennen, beim Podcast, um gute von schlechten Inhalten zu unterscheiden.</p>
+    </aside>
+  </section>
+
+
   <!-- ============ 4 · ENDE ============ -->
-  <section class="slide s4" aria-label="Ende">
+  <section class="slide s4" data-key="end" aria-label="Fazit &amp; Fragen">
     <div class="head">
       <h2 class="h-xl r" style="--d:.2s">Danke fürs<br>Zuhören.</h2>
       <p class="sub r" style="--d:.6s">E-Mail &amp; Podcast – zwei unterschiedliche digitale Medien</p>
@@ -425,7 +1175,14 @@
         <circle class="meet" id="dot4" cx="1040" cy="800" r="5" opacity="0"/>
       </svg>
     </div>
+    <p class="lt m r" style="--d:2s"><b>E-Mail</b> – schreiben &amp; austauschen</p>
+    <p class="lt p r" style="--d:2.2s"><b>Podcast</b> – hören &amp; lernen</p>
     <p class="ask r" style="--d:3s">Fragen?</p>
+    <aside class="notes">
+      <p><b>Fazit:</b> E-Mail und Podcast sind zwei unterschiedliche digitale Medien. Die E-Mail dient dem schriftlichen <b>Austausch</b> – schnell, gezielt, mit Anhängen, technisch über Mailserver mit SMTP und IMAP/POP3. Der Podcast dient dem <b>Zuhören und Lernen</b> – flexibel, jederzeit abrufbar, verbreitet über Hosting und RSS-Feed.</p>
+      <p>Die beiden Linien treffen sich: Beide Medien sind zeitversetzt nutzbar, und bei beiden braucht man Medienkompetenz – Phishing erkennen und Inhalte kritisch prüfen.</p>
+      <p>Danke fürs Zuhören – jetzt ist Zeit für Fragen. Mögliche Fragen: Was ist der Unterschied zwischen CC und BCC? Warum braucht ein Podcast einen RSS-Feed? Woran erkennt man Phishing?</p>
+    </aside>
   </section>
 
   <!-- ============ Navigation ============ -->
@@ -440,16 +1197,166 @@
   </nav>
 </div>
 
+<div id="notesPanel" aria-live="polite"></div>
+<script id="timeline" type="application/json">
+{
+  "title": [
+    [0.25, 1.55, "Briefumschlag zeichnet sich (stroke-dashoffset)"],
+    [0.4, 1.4, "Titel „Digitale Medien“ erscheint"],
+    [0.7, 1.7, "Untertitel „E-Mail & Podcast“ erscheint"],
+    [1.0, 3.6, "Linie läuft vom Umschlag nach rechts und wird zur Audio-Wellenform"],
+    [1.2, 2.2, "Beschriftung „E-Mail“ erscheint"],
+    [2.6, 3.6, "Beschriftung „Podcast“ erscheint"],
+    [3.6, null, "Wellenform schwingt ruhig weiter"]
+  ],
+  "mail": [
+    [0.1, 1.1, "Mail-Fenster erscheint, Kernfrage und Überschrift „E-Mail“"],
+    [0.55, 1.9, "Textzeilen im Fenster bauen sich auf"],
+    [1.55, 2.05, "„Senden“ wird gedrückt → „Gesendet ✓“"],
+    [1.8, 3.2, "Lichtpunkt läuft als dünne Linie zur Merkmalsliste"],
+    [2.7, 4.5, "Merkmale 01–05 erscheinen nacheinander"],
+    [4.0, 5.0, "„Geeignet für …“ erscheint"]
+  ],
+  "tech": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [1.0, 2.6, "Fünf Stationen erscheinen nacheinander (Absender → Empfänger)"],
+    [1.4, 3.8, "Verbindungen zwischen den Stationen werden gezeichnet"],
+    [3.0, 3.9, "Protokolle SMTP und IMAP / POP3 werden beschriftet"],
+    [3.9, 5.4, "Erklärungen SMTP, IMAP und POP3 erscheinen"],
+    [5.6, null, "Ein Punkt läuft alle 7 s ruhig vom Absender zum Empfänger"]
+  ],
+  "mailflow": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [0.8, 1.8, "Mailprogramm (Absender), Schritt-Zähler und Postfach (Empfänger) erscheinen"],
+    [1.4, 3.2, "Verbindungslinie wird gezeichnet"],
+    [2.0, 3.2, "Schnittpunkte 01–06 erscheinen nacheinander"],
+    [3.4, 4.8, "Schritt 1: Nachricht wird geschrieben – 01 Verfassen leuchtet"],
+    [5.0, 6.0, "Schritt 2: Empfängeradresse wird eingetippt"],
+    [6.4, 7.1, "Schritt 3: Betreff wird eingetragen"],
+    [7.6, 8.2, "Schritt 4: Datei wird angehängt"],
+    [8.6, 9.2, "Schritt 5: „Senden“ wird gedrückt"],
+    [9.4, 10.4, "Schritt 6: E-Mail verlässt den Computer – 02 Senden leuchtet"],
+    [10.8, 12.0, "Schritt 7: Übertragung zum Mailserver – 03 leuchtet"],
+    [12.6, 13.8, "Schritt 8: Mailserver leitet weiter – 04 leuchtet"],
+    [14.4, 15.6, "Schritt 9: Ankunft beim Empfänger-Server – 05 leuchtet"],
+    [16.2, 17.4, "Schritt 10: neue Nachricht im Postfach – 06 Empfang leuchtet"],
+    [18.6, 19.6, "Schritt 11: Nachricht wird geöffnet"]
+  ],
+  "anat": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [0.5, 1.5, "Mail-Fenster erscheint"],
+    [1.6, 2.3, "Von: Feld leuchtet, Linie und Erklärung erscheinen"],
+    [2.3, 3.0, "An: Feld leuchtet, Erklärung erscheint"],
+    [3.0, 3.7, "CC: Feld leuchtet, Erklärung erscheint"],
+    [3.7, 4.4, "BCC: Feld leuchtet, Erklärung erscheint"],
+    [4.4, 5.1, "Betreff: Feld leuchtet, Erklärung erscheint"],
+    [5.1, 5.8, "Text: Feld leuchtet, Erklärung erscheint"],
+    [5.8, 6.5, "Signatur: Feld leuchtet, Erklärung erscheint"],
+    [6.5, 7.2, "Anhang: Feld leuchtet, Erklärung erscheint"]
+  ],
+  "sec": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [0.6, 1.6, "Beispiel einer Phishing-Mail erscheint"],
+    [1.0, 2.3, "Begriffe Spam und Phishing werden erklärt"],
+    [2.4, 3.2, "Warnzeichen 1: Absenderadresse wird markiert"],
+    [3.3, 4.1, "Warnzeichen 2: Zeitdruck im Betreff"],
+    [4.2, 5.0, "Warnzeichen 3: unpersönliche Anrede"],
+    [5.1, 5.9, "Warnzeichen 4: gefälschter Link"],
+    [6.0, 6.8, "Warnzeichen 5: gefährlicher Anhang"],
+    [7.1, 8.4, "Vier Schutzregeln erscheinen nacheinander"]
+  ],
+  "pod": [
+    [0.2, 1.2, "Kernfrage und Überschrift „Podcast“"],
+    [0.35, 1.6, "Wellenform baut sich auf"],
+    [0.6, 1.6, "„Nützlich für …“ erscheint"],
+    [1.5, null, "Play wechselt zu Pause, Abspielmarke läuft, gespielte Balken werden orange"],
+    [1.8, 3.4, "Merkmale 01–05 erscheinen nacheinander"],
+    [3.2, 4.2, "„Aber: …“ erscheint"]
+  ],
+  "prod": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [0.8, 2.4, "Stationen-Leiste wird gezeichnet, Schnittpunkte 01–05 erscheinen"],
+    [1.6, 2.4, "Mikrofon und Spur „Stimme“ erscheinen"],
+    [2.4, 6.4, "01 Mikrofon: Aufnahme läuft (REC) – Wellenform entsteht von links nach rechts"],
+    [6.8, 8.6, "02 Rohaufnahme: Versprecher, Pause und Störgeräusch werden markiert"],
+    [9.4, 10.8, "03 Schnitt: markierte Stellen werden entfernt, die Lücken schließen sich"],
+    [11.0, 12.0, "03 Schnitt: Lautstärke wird angeglichen, Rauschen entfernt"],
+    [12.8, 14.4, "04 Musik & Effekte: Musikspur mit Intro und Outro baut sich auf"],
+    [15.4, 17.0, "05 Export: Spuren werden zusammengemischt, Exportbalken läuft"],
+    [17.0, 18.0, "Fertige Audiodatei „Folge_12.mp3“ – bereit für den Upload"]
+  ],
+  "pflow": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [1.0, 2.8, "Wellenförmige Verbindungslinie wird gezeichnet"],
+    [1.4, 2.8, "Schnittpunkte 01–08 erscheinen nacheinander"],
+    [2.8, 3.6, "Punkt startet: 01 Idee leuchtet, Erklärung erscheint"],
+    [3.4, 4.6, "Punkt wandert zu 02 Recherche – leuchtet, Erklärung erscheint"],
+    [5.2, 6.4, "Punkt wandert zu 03 Aufnahme"],
+    [7.0, 8.2, "Punkt wandert zu 04 Schnitt"],
+    [8.8, 10.0, "Punkt wandert zu 05 Export"],
+    [10.6, 11.8, "Punkt wandert zu 06 Veröffentlichung"],
+    [12.4, 13.6, "Punkt wandert zu 07 Plattform"],
+    [14.2, 15.4, "Punkt erreicht 08 Hörer – Ablauf komplett"]
+  ],
+  "dist": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [1.0, 2.6, "Stationen erscheinen, Verbindungen werden gezeichnet"],
+    [2.8, 3.4, "Upload: „Folge_12.mp3“ wandert ins Hosting – Hosting leuchtet"],
+    [3.8, 5.0, "Datenpunkt läuft zum RSS-Feed – neuer Eintrag „Folge 12“ leuchtet"],
+    [5.6, 7.0, "Feed verteilt die Folge gleichzeitig an drei Plattformen"],
+    [7.6, 8.8, "Plattformen liefern an den Hörer – Hörer leuchtet"],
+    [9.2, 10.0, "„Streaming / Download“ wird eingeblendet"],
+    [10.2, 11.8, "Abonnieren: Punkt läuft vom Hörer zurück zum Feed"],
+    [12.0, 12.8, "„Neue Folgen kommen automatisch“ wird eingeblendet"],
+    [13.0, null, "Verteilung wiederholt sich ruhig alle 8 s"]
+  ],
+  "fmt": [
+    [0.0, 1.0, "Kernfrage und Überschrift erscheinen"],
+    [0.8, 3.2, "Fünf Formate erscheinen, ihre Sprecher-Wellenformen bauen sich auf"],
+    [3.0, 4.0, "Zielgruppen erscheinen"],
+    [3.8, 4.8, "Einsatzbereiche erscheinen"],
+    [5.0, 6.3, "Chancen und Probleme erscheinen"]
+  ],
+  "cmp": [
+    [0.0, 1.0, "Überschrift erscheint"],
+    [0.8, 2.6, "Spalten E-Mail / Podcast mit blauer Linie und oranger Welle"],
+    [1.6, 4.7, "Sieben Vergleichszeilen erscheinen nacheinander"]
+  ],
+  "end": [
+    [0.2, 1.2, "„Danke fürs Zuhören.“ erscheint"],
+    [0.6, 1.6, "Untertitel erscheint"],
+    [0.9, 2.9, "E-Mail-Linie und Audio-Wellenform laufen aufeinander zu"],
+    [2.0, 3.0, "Fazit-Beschriftungen an beiden Linien"],
+    [2.8, 4.7, "Treffpunkt leuchtet auf, Ring breitet sich aus"],
+    [3.0, 4.0, "„Fragen?“ erscheint"]
+  ]
+}
+</script>
+
 <script>
 (() => {
   const stage = document.getElementById('stage');
   const slides = [...stage.querySelectorAll('.slide')];
-  const bars = [...stage.querySelectorAll('.progress .bars i')];
   const num = document.getElementById('num');
   const nextLabel = document.getElementById('nextLabel');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TL = JSON.parse(document.getElementById('timeline').textContent);
   const N = slides.length;
+  const NS = 'http://www.w3.org/2000/svg';
   let cur = 0, lock = false;
+
+  /* ---------- progress segments ---------- */
+  const barsEl = document.getElementById('bars');
+  const bars = slides.map(() => barsEl.appendChild(document.createElement('i')));
+
+  /* ---------- cue delays come from the timeline (one source of truth) ---------- */
+  slides.forEach(s => {
+    const tl = TL[s.dataset.key] || [];
+    s.querySelectorAll('[data-cue]').forEach(el => {
+      const c = tl[+el.dataset.cue];
+      if (c) el.style.setProperty('--d', (c[0] + +(el.dataset.off || 0)).toFixed(2) + 's');
+    });
+  });
 
   /* ---------- fit 1920×1080 into any screen ---------- */
   function fit() {
@@ -461,9 +1368,11 @@
   /* ---------- navigation ---------- */
   function updateChrome() {
     stage.dataset.slide = cur;
+    stage.dataset.accent = slides[cur].dataset.accent || '';
     num.textContent = String(cur + 1).padStart(2, '0');
     bars.forEach((b, i) => { b.classList.toggle('now', i === cur); b.classList.toggle('done', i < cur); });
     nextLabel.textContent = cur === N - 1 ? 'Von vorn' : 'Weiter';
+    renderNotes();
   }
 
   function go(n) {
@@ -498,12 +1407,24 @@
   const next = () => go(cur === N - 1 ? 0 : cur + 1);
   const prev = () => go(cur - 1);
 
+  /* restart the current slide's animation from 00:00 */
+  function replay() {
+    const s = slides[cur];
+    s.classList.remove('on'); void s.offsetWidth; s.classList.add('on');
+    s.t0 = performance.now();
+  }
+
   document.getElementById('next').addEventListener('click', next);
   document.getElementById('prev').addEventListener('click', prev);
-  addEventListener('keydown', e => {
+  stage.querySelectorAll('[data-replay]').forEach(b => b.addEventListener('click', replay));
+  function onKey(e) {
     if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); next(); }
-    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
-  });
+    else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'r' || e.key === 'R') replay();
+    else if (e.key === 'n' || e.key === 'N') toggleNotes();
+    else if (e.key === 'p' || e.key === 'P') openPresenter();
+  }
+  addEventListener('keydown', onKey);
 
   /* ---------- subtle parallax ---------- */
   addEventListener('pointermove', e => {
@@ -515,13 +1436,94 @@
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const ss = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const lerp = (a, b, k) => a + (b - a) * k;
   const sig = (x, t) =>
     (.55 * Math.sin(x * .045 - t * 2.0) + .3 * Math.sin(x * .017 + t * 1.1) + .15 * Math.sin(x * .13 - t * 3.4))
     * (.72 + .28 * Math.sin(x * .006 - t * .7));
+  const svgEl = (tag, attrs = {}, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const mkRand = seed => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const lenOfPath = p => { const L = p.getTotalLength(); p.style.setProperty('--len', L.toFixed(1)); return L; };
 
-  /* ---------- slide 1: mail line becomes a waveform ---------- */
+  /* =====================================================================
+     Flow engine: path + checkpoints + travelling dot.
+     A checkpoint lights up when the dot reaches it (or at a forced time).
+     ===================================================================== */
+  function buildFlow(sec, o) {
+    const svg = sec.querySelector(o.svg), layer = sec.querySelector(o.layer);
+    const line = svgEl('path', { class: 'fl-line', d: o.d }, svg);
+    const trail = svgEl('path', { class: 'fl-trail', d: o.d }, svg);
+    const L = lenOfPath(line);
+    line.style.setProperty('--d', o.lineAt + 's');
+
+    // where along the path does each checkpoint sit?
+    const nodeLen = o.nodes.map(() => 0), best = o.nodes.map(() => 1e9);
+    for (let s = 0; s <= L; s += 2) {
+      const p = line.getPointAtLength(s);
+      o.nodes.forEach((n, k) => {
+        const dd = (p.x - n.x) ** 2 + (p.y - n.y) ** 2;
+        if (dd < best[k]) { best[k] = dd; nodeLen[k] = s; }
+      });
+    }
+
+    const nodes = o.nodes.map((n, k) => {
+      const d = (o.appear[0] + k * o.appear[1]).toFixed(2) + 's';
+      const g = svgEl('g', { class: 'nd' }, svg);
+      g.style.setProperty('--d', d);
+      svgEl('circle', { class: 'halo', cx: n.x, cy: n.y, r: 20 }, g);
+      svgEl('circle', { class: 'glow', cx: n.x, cy: n.y, r: 9 }, g);
+      svgEl('circle', { class: 'core', cx: n.x, cy: n.y, r: 8 }, g);
+      const lab = document.createElement('div');
+      const w = n.w || o.w || 280;
+      lab.className = 'nl ' + (n.pos || 'below');
+      lab.style.cssText = `left:${n.x - w / 2}px;width:${w}px;--d:${d};` +
+        (n.pos === 'above' ? `bottom:${1080 - n.y + 30}px` : `top:${n.y + 30}px`);
+      lab.innerHTML = (n.icon ? `<svg class="ic"><use href="#${n.icon}"/></svg>` : '') +
+        `<p class="nn"><b>${n.num}</b>${n.name}</p>` + (n.exp ? `<p class="exp">${n.exp}</p>` : '');
+      if (n.pos === 'above') lab.style.flexDirection = 'column-reverse';
+      layer.appendChild(lab);
+      return { g, lab };
+    });
+
+    const dot = svgEl('g', { class: 'fdot' }, svg);
+    svgEl('circle', { class: 'h', r: 16 }, dot);
+    if (o.envelope) {
+      svgEl('rect', { class: 'env', x: -10, y: -7, width: 20, height: 14, rx: 2 }, dot);
+      svgEl('path', { class: 'flap', d: 'M-9 -6 L0 1 L9 -6' }, dot);
+    } else svgEl('circle', { class: 'c', r: 6 }, dot);
+
+    const at = v => v === 's' ? 0 : v === 'e' ? L : nodeLen[v];
+    return t => {
+      let pos = null;
+      for (const [a, b, f, to] of o.legs) {
+        if (t < a) break;
+        pos = t >= b ? at(to) : lerp(at(f), at(to), ease((t - a) / (b - a)));
+      }
+      if (pos === null && t >= o.dotShow) pos = at(o.legs[0][2]);
+      const visible = pos !== null && t < (o.dotHide ?? 1e9);
+      dot.style.opacity = visible ? 1 : 0;
+      if (pos !== null) {
+        const p = line.getPointAtLength(pos);
+        dot.setAttribute('transform', `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`);
+      }
+      trail.style.strokeDasharray = `${(pos ?? 0).toFixed(1)} ${L + 10}`;
+      nodes.forEach((n, k) => {
+        const hit = (o.force?.[k] != null && t >= o.force[k]) || (pos !== null && pos >= nodeLen[k] - .5 && t >= o.legs[0][0]);
+        n.g.classList.toggle('hit', hit);
+        n.lab.classList.toggle('hit', hit);
+      });
+      return pos;
+    };
+  }
+  const bySel = k => slides.find(s => s.dataset.key === k);
+
+  /* ---------- 01 · Titel: mail line becomes a waveform ---------- */
   const sig1 = document.getElementById('sig1');
-  function r1(t) {
+  function rTitle(t) {
     const X0 = 284, XW = 900, X1 = 1760, Y = 470;
     const head = X0 + (X1 - X0) * ease(clamp((t - 1.0) / 2.6));
     let d = `M${X0} ${Y}`;
@@ -533,13 +1535,100 @@
     sig1.setAttribute('d', d);
   }
 
-  /* ---------- slide 3: podcast waveform ---------- */
+  /* ---------- 03 · Technik: ambient dot every 7 s ---------- */
+  const techSec = bySel('tech');
+  techSec.querySelectorAll('.seg').forEach(lenOfPath);
+  const techPath = document.getElementById('techPath'), techDot = document.getElementById('techDot');
+  const techL = techPath.getTotalLength();
+  function rTech(t) {
+    const start = TL.tech[5][0];
+    if (t < start) { techDot.style.opacity = 0; return; }
+    const c = ((t - start) % 7) / 4.6;
+    techDot.style.opacity = c < 1 ? 1 : 0;
+    const p = techPath.getPointAtLength(techL * ease(clamp(c)));
+    techDot.setAttribute('transform', `translate(${p.x} ${p.y})`);
+  }
+
+  /* ---------- 04 · Versand: 11 steps along 6 checkpoints ---------- */
+  const mfSec = bySel('mailflow');
+  const mfX = [230, 522, 814, 1106, 1398, 1690];
+  const mfFlow = buildFlow(mfSec, {
+    svg: '#mfSvg', layer: '#mfLayer', envelope: true, w: 270,
+    d: `M230 600 V700 H1690 V600`, lineAt: TL.mailflow[2][0], appear: [TL.mailflow[3][0], .2],
+    nodes: [
+      { num: '01', name: 'Verfassen', icon: 'i-pen', exp: 'Nachricht im Mail&shy;programm schreiben' },
+      { num: '02', name: 'Senden', icon: 'i-send', exp: 'Programm übergibt die Mail per SMTP' },
+      { num: '03', name: 'Mailserver', icon: 'i-server', exp: 'Postausgang des Absenders nimmt an' },
+      { num: '04', name: 'Weiterleitung', icon: 'i-globe', exp: 'übers Internet zur Ziel-Domain' },
+      { num: '05', name: 'Empfänger-Server', icon: 'i-server', exp: 'speichert die Mail im Postfach' },
+      { num: '06', name: 'Empfang', icon: 'i-inbox', exp: 'Abruf per IMAP / POP3, Mail wird geöffnet' }
+    ].map((n, k) => ({ ...n, x: mfX[k], y: 700 })),
+    force: { 0: TL.mailflow[4][0] },
+    dotShow: TL.mailflow[9][0], dotHide: TL.mailflow[13][1] + .2,
+    legs: [[9.4, 10.4, 's', 1], [10.8, 12.0, 1, 2], [12.6, 13.8, 2, 3], [14.4, 15.6, 3, 4], [16.2, 17.4, 4, 'e']]
+  });
+  const mfTo = document.getElementById('mfTo'), mfSub = document.getElementById('mfSub');
+  const cTo = document.getElementById('mfCaretTo'), cSub = document.getElementById('mfCaretSub');
+  const mfNo = document.getElementById('mfNo'), mfTxt = document.getElementById('mfTxt');
+  const STEPS = TL.mailflow.slice(4).map(([a, , txt]) => [a, txt.replace(/^Schritt \d+: /, '').replace(/ – .*$/, '')]);
+  let mfStep = -1;
+  const typed = (full, t, a, b) => full.slice(0, Math.round(full.length * clamp((t - a) / (b - a))));
+  function rMailflow(t) {
+    mfFlow(t);
+    mfTo.textContent = typed('klasse@schule.de', t, 5.0, 6.0);
+    mfSub.textContent = typed('Unterlagen', t, 6.4, 7.1);
+    cTo.classList.toggle('on', t >= 4.9 && t < 6.3);
+    cSub.classList.toggle('on', t >= 6.3 && t < 7.4);
+    let k = -1;
+    STEPS.forEach(([a], i) => { if (t >= a) k = i; });
+    if (k !== mfStep) {
+      mfStep = k;
+      mfTxt.style.opacity = 0;
+      setTimeout(() => {
+        mfNo.textContent = String(k + 1).padStart(2, '0');
+        mfTxt.textContent = k < 0 ? 'Gleich geht es los …' : STEPS[k][1];
+        mfTxt.style.opacity = 1;
+      }, k < 0 ? 0 : 300);
+    }
+  }
+
+  /* ---------- 05 · Aufbau: leader lines + annotations ---------- */
+  (function buildAnat() {
+    const sec = bySel('anat');
+    const leads = document.getElementById('anatLeads'), ann = document.getElementById('anatAnn');
+    const items = [
+      ['Von', 'Absender · <i>name@anbieter.de</i>'],
+      ['An', 'Empfänger – eine oder mehrere Adressen'],
+      ['CC', 'Kopie – alle sehen, wer sie bekommt'],
+      ['BCC', 'Blindkopie – Empfänger bleiben unsichtbar'],
+      ['Betreff', 'Worum geht es? Kurz und eindeutig'],
+      ['Text', 'Anrede, Inhalt, Gruß'],
+      ['Signatur', 'Name und Kontakt, automatisch angefügt'],
+      ['Anhang', 'Dateien wie PDF oder Bilder – Größe begrenzt']
+    ];
+    const winTop = 300;
+    const flds = [...sec.querySelectorAll('.fld')];
+    items.forEach(([b, txt], i) => {
+      const f = flds[i];
+      const y = winTop + f.offsetTop + f.offsetHeight / 2;
+      const d = TL.anat[i + 2][0];
+      const pin = svgEl('circle', { class: 'pin', cx: 820, cy: y, r: 3.5 }, leads);
+      const ln = svgEl('path', { class: 'lead', d: `M820 ${y} H940` }, leads);
+      pin.style.setProperty('--d', d + 's'); ln.style.setProperty('--d', d + 's');
+      const a = document.createElement('p');
+      a.className = 'ann r';
+      a.style.cssText = `top:${y}px;--d:${(d + .25).toFixed(2)}s`;
+      a.innerHTML = `<b>${b}</b><span>${txt}</span>`;
+      ann.appendChild(a);
+    });
+  })();
+
+  /* ---------- 07 · Podcast intro waveform (unchanged) ---------- */
   const wave = document.getElementById('wave');
   const playhead = document.getElementById('playhead');
   const playBtn = document.getElementById('play');
   const B = 128, shape = [];
-  let seed = 7;
-  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const rnd = mkRand(7);
   for (let i = 0; i < B; i++) {
     const phrase = .55 + .45 * Math.sin(i * .19) * Math.sin(i * .053 + 1);
     const v = (.25 + .75 * rnd()) * (.35 + .65 * Math.abs(phrase));
@@ -552,7 +1641,7 @@
   playBtn.addEventListener('click', () => { playing = !playing; userPaused = !playing; playBtn.classList.toggle('playing', playing); });
 
   let last3 = 0;
-  function r3(t, now) {
+  function rPod(t, now) {
     const dt = Math.min(.05, (now - last3) / 1000); last3 = now;
     if (t < .1) { prog = 0; playing = false; userPaused = false; playBtn.classList.remove('playing'); }
     if (t > 1.5 && !playing && !userPaused) { playing = true; playBtn.classList.add('playing'); }
@@ -571,10 +1660,200 @@
     playhead.style.opacity = ss(1.4, 2, t);
   }
 
-  /* ---------- slide 4: the two lines meet ---------- */
+  /* ---------- 08 · Produktion: recording → raw → cut → music → export ---------- */
+  const prodSec = bySel('prod');
+  const prodRail = buildFlow(prodSec, {
+    svg: '#prodSvg', layer: '#prodLayer', w: 260,
+    d: 'M300 350 H1700', lineAt: TL.prod[1][0], appear: [TL.prod[1][0] + .3, .2],
+    nodes: [
+      { num: '01', name: 'Mikrofon', icon: 'i-mic' },
+      { num: '02', name: 'Rohaufnahme', icon: 'i-stream' },
+      { num: '03', name: 'Schnitt', icon: 'i-cut' },
+      { num: '04', name: 'Musik & Effekte', icon: 'i-music' },
+      { num: '05', name: 'Export', icon: 'i-file' }
+    ].map((n, k) => ({ ...n, x: 300 + k * 350, y: 350 })),
+    force: { 0: TL.prod[3][0] }, dotShow: TL.prod[3][0],
+    legs: [[6.0, 6.8, 0, 1], [8.6, 9.4, 1, 2], [12.0, 12.8, 2, 3], [14.6, 15.4, 3, 4]]
+  });
+  const PN = 150, PITCH = 9.6, PX0 = 300, PY = 600, PH = 104;
+  const prnd = mkRand(42);
+  const CUTS = [[30, 37, 'Versprecher'], [78, 86, 'lange Pause'], [118, 124, 'Störgeräusch']];
+  const inCut = i => CUTS.findIndex(([a, b]) => i >= a && i <= b);
+  const voice = [], music = [];
+  for (let i = 0; i < PN; i++) {
+    const env = .45 + .55 * Math.abs(Math.sin(i * .11) * Math.sin(i * .037 + .6));
+    const gap = (i % 23 === 0 || i % 23 === 1) ? .12 : 1;
+    let raw = clamp((.2 + .8 * prnd()) * env * gap, .05, 1);
+    const c = inCut(i);
+    if (c === 1) raw = .04 + .04 * prnd();           // long pause: only noise floor
+    if (c === 2) raw = .55 + .45 * prnd();           // noise burst: spiky
+    const clean = gap < 1 ? .03 : clamp(.42 + .42 * env * (.6 + .4 * prnd()), .3, .9);
+    const r = svgEl('rect', { class: 'vb', width: 5, rx: 2.5, y: PY, height: 0 }, document.getElementById('prodVoice'));
+    voice.push({ raw, clean, c, r });
+    const u = i / (PN - 1);
+    const mv = .25 + .7 * Math.max(1 - ss(0, .09, u), ss(.84, .96, u)) + .06 * Math.sin(i * .7);
+    music.push({ v: clamp(mv, .1, 1), r: svgEl('rect', { width: 5, rx: 2.5, y: 760, height: 0, fill: 'rgba(243,241,236,.22)' }, document.getElementById('prodMusic')) });
+  }
+  const marks = CUTS.map(([a, b, name]) => {
+    const g = svgEl('g', { opacity: 0 }, document.getElementById('prodMarks'));
+    const rect = svgEl('rect', { class: 'mark', y: PY - PH - 12, height: 2 * PH + 24, rx: 4 }, g);
+    const tx = svgEl('text', { class: 'mlab', y: PY - PH - 24, 'text-anchor': 'middle' }, g);
+    tx.textContent = name;
+    return { a, b, g, rect, tx };
+  });
+  const prodHead = document.getElementById('prodHead'), prodRec = document.getElementById('prodRec');
+  const prodFile = document.getElementById('prodFile'), prodBar = document.getElementById('prodBar'), prodState = document.getElementById('prodFileState');
+  const prodCaps = [...document.querySelectorAll('#prodCaps p')];
+  const STAGE_AT = [TL.prod[3][0], TL.prod[4][0], TL.prod[5][0], TL.prod[7][0], TL.prod[8][0]];
+  const POD = '#ff7a48';
+  function rProd(t, now) {
+    prodRail(t);
+    const recP = clamp((t - 2.4) / 4);                // 01 recording sweep
+    const cutK = ease(clamp((t - 9.4) / 1.4));        // 03 cut
+    const normK = ease(clamp((t - 11) / 1));          // 03 normalize
+    const musK = clamp((t - 12.8) / 1.6);             // 04 music builds
+    const expK = clamp((t - 15.4) / 1.6);             // 05 export sweep
+    let x = PX0;
+    const xs = [];
+    voice.forEach((v, i) => {
+      const keep = v.c >= 0 ? 1 - cutK : 1;
+      xs.push(x);
+      const born = ss(i / PN - .002, i / PN + .02, recP);
+      const live = t < 6.4 && t > 2.4 ? 1 + .25 * Math.sin(now * .02 + i) * Math.exp(-(((i / PN - recP) * 30) ** 2)) : 1;
+      const h = PH * lerp(v.raw, v.c >= 0 ? v.raw : v.clean, normK) * born * keep * live;
+      v.r.setAttribute('x', x.toFixed(1));
+      v.r.setAttribute('width', (5 * keep).toFixed(2));
+      v.r.setAttribute('y', (PY - h).toFixed(1));
+      v.r.setAttribute('height', (2 * h).toFixed(1));
+      const flagged = v.c >= 0 && t >= 6.8;
+      const swept = expK > 0 && x < PX0 + expK * 1300;
+      v.r.setAttribute('fill', swept ? POD : flagged ? 'rgba(255,122,72,.75)' : normK > .5 ? 'rgba(243,241,236,.55)' : 'rgba(243,241,236,.3)');
+      x += PITCH * keep;
+    });
+    music.forEach((m, i) => {
+      const born = musK > 0 ? ss(i / PN - .01, i / PN + .03, musK) : 0;
+      const h = 22 * m.v * born * (1 + .08 * Math.sin(now * .004 + i * .5));
+      m.r.setAttribute('x', xs[i].toFixed(1));
+      m.r.setAttribute('width', voice[i].c >= 0 ? (5 * (1 - cutK)).toFixed(2) : 5);
+      m.r.setAttribute('y', (760 - h).toFixed(1));
+      m.r.setAttribute('height', (2 * h).toFixed(1));
+      m.r.setAttribute('fill', expK > 0 && xs[i] < PX0 + expK * 1300 ? 'rgba(255,122,72,.7)' : 'rgba(243,241,236,.22)');
+    });
+    marks.forEach(m => {
+      const x0 = xs[m.a] - 6, x1 = xs[m.b] + 5 * (1 - cutK) + 6;
+      m.rect.setAttribute('x', x0.toFixed(1));
+      m.rect.setAttribute('width', Math.max(0, x1 - x0).toFixed(1));
+      m.tx.setAttribute('x', ((x0 + x1) / 2).toFixed(1));
+      m.g.setAttribute('opacity', (ss(6.8, 7.6, t) * (1 - ss(9.6, 10.4, t))).toFixed(3));
+    });
+    const recording = t >= 2.4 && t < 6.4;
+    prodRec.style.opacity = recording ? 1 : 0;
+    const hx = recording ? PX0 + recP * PN * PITCH : expK > 0 && expK < 1 ? PX0 + expK * 1300 : 0;
+    prodHead.setAttribute('x1', hx); prodHead.setAttribute('x2', hx);
+    prodHead.setAttribute('opacity', hx ? .8 : 0);
+    prodFile.classList.toggle('show', t >= 15.6);
+    prodBar.style.width = (expK * 100).toFixed(1) + '%';
+    prodState.textContent = expK >= 1 ? 'fertig ✓ · bereit für den Upload' : 'wird exportiert …';
+    let k = -1; STAGE_AT.forEach((a, i) => { if (t >= a) k = i; });
+    prodCaps.forEach((p, i) => p.classList.toggle('show', i === k));
+  }
+
+  /* ---------- 09 · Produktion als Ablauf: 8 checkpoints on a wave path ---------- */
+  const pfSec = bySel('pflow');
+  const pfPts = Array.from({ length: 8 }, (_, k) => ({ x: 320 + k * (1280 / 7), y: k % 2 ? 660 : 560 }));
+  let pfD = `M${pfPts[0].x} ${pfPts[0].y}`;
+  for (let k = 1; k < 8; k++) {
+    const a = pfPts[k - 1], b = pfPts[k], dx = (b.x - a.x) / 2;
+    pfD += ` C${(a.x + dx).toFixed(1)} ${a.y} ${(b.x - dx).toFixed(1)} ${b.y} ${b.x.toFixed(1)} ${b.y}`;
+  }
+  const pfArr = k => 2.8 + k * 1.8;
+  const pfFlow = buildFlow(pfSec, {
+    svg: '#pfSvg', layer: '#pfLayer', w: 320,
+    d: pfD, lineAt: TL.pflow[1][0], appear: [TL.pflow[2][0], .18],
+    nodes: [
+      { num: '01', name: 'Idee', icon: 'i-idea', exp: 'Thema, Zielgruppe und Format festlegen' },
+      { num: '02', name: 'Recherche', icon: 'i-search', exp: 'Fakten prüfen, Skript oder Stichpunkte' },
+      { num: '03', name: 'Aufnahme', icon: 'i-mic', exp: 'mit Mikrofon in ruhigem Raum sprechen' },
+      { num: '04', name: 'Schnitt', icon: 'i-cut', exp: 'Fehler entfernen, Musik ergänzen' },
+      { num: '05', name: 'Export', icon: 'i-file', exp: 'fertige Audiodatei, meist MP3' },
+      { num: '06', name: 'Veröffentlichung', icon: 'i-upload', exp: 'Upload zum Hosting mit Titel & Cover' },
+      { num: '07', name: 'Plattform', icon: 'i-apps', exp: 'Apps übernehmen die Folge per RSS' },
+      { num: '08', name: 'Hörer', icon: 'i-head', exp: 'streamen, herunterladen, abonnieren' }
+    ].map((n, k) => ({ ...n, ...pfPts[k], pos: k % 2 ? 'below' : 'above' })),
+    force: { 0: pfArr(0) }, dotShow: pfArr(0),
+    legs: Array.from({ length: 7 }, (_, k) => [pfArr(k + 1) - 1.2, pfArr(k + 1), k, k + 1])
+  });
+
+  /* ---------- 10 · Verteilung: hosting → feed → platforms → listener ---------- */
+  const dW = [...Array(8)].map((_, i) => document.getElementById('dw' + i));
+  const dWL = dW.map(lenOfPath);
+  const pkG = document.getElementById('distPk');
+  const pk = dW.map(() => { const g = svgEl('g', { opacity: 0 }, pkG); svgEl('circle', { r: 13, fill: POD, opacity: .2 }, g); svgEl('circle', { r: 5.5, fill: POD }, g); return g; });
+  const dsHost = document.getElementById('dsHost'), dsFeed = document.getElementById('dsFeed'), dsL = document.getElementById('dsL');
+  const dsP = [0, 1, 2].map(i => document.getElementById('dsP' + i));
+  const dsNew = document.getElementById('dsNew'), dtMode = document.getElementById('dtMode'), dtSub = document.getElementById('dtSub');
+  const dUp = document.getElementById('distUp'), dc = [0, 1, 2, 3].map(i => document.getElementById('dc' + i));
+  function packet(i, t, a, b) {
+    const k = (t - a) / (b - a);
+    if (k <= 0 || k >= 1.15) { pk[i].setAttribute('opacity', 0); return; }
+    const p = dW[i].getPointAtLength(dWL[i] * ease(clamp(k)));
+    pk[i].setAttribute('transform', `translate(${p.x} ${p.y})`);
+    pk[i].setAttribute('opacity', k < 1 ? 1 : 1 - (k - 1) / .15);
+  }
+  function rDist(t) {
+    const u = ease(clamp((t - 2.8) / .6));
+    dUp.style.opacity = t < 2.6 ? 0 : 1 - ss(3.2, 3.5, t);
+    dUp.style.transform = `translate(${u * 120}px, 0) scale(${1 - .3 * u})`;
+    const tc = t < 13 ? t : 3.8 + ((t - 13) % 8);    // after the first run, loop the delivery
+    packet(0, tc, 3.8, 5.0);
+    packet(1, tc, 5.6, 7.0); packet(2, tc, 5.6, 7.0); packet(3, tc, 5.6, 7.0);
+    packet(4, tc, 7.6, 8.8); packet(5, tc, 7.6, 8.8); packet(6, tc, 7.6, 8.8);
+    packet(7, t, 10.2, 11.8);
+    dsHost.classList.toggle('hit', t >= 3.4);
+    dsFeed.classList.toggle('hit', t >= 5.0);
+    dsNew.classList.toggle('show', t >= 5.0);
+    dsP.forEach(p => p.classList.toggle('hit', t >= 7.0));
+    dsL.classList.toggle('hit', t >= 8.8);
+    dtMode.classList.toggle('show', t >= 9.2);
+    dtSub.classList.toggle('show', t >= 12.0);
+    [3.4, 5.0, 7.0, 8.8].forEach((a, i) => dc[i].classList.toggle('show', t >= a));
+  }
+
+  /* ---------- 11 · Formate: speaker-share mini waveforms ---------- */
+  const PATS = {
+    interview: i => (Math.floor(i / 9) % 2 ? 'v1' : 'v0'),
+    solo: () => 'v0',
+    round: i => ['v0', 'v1', 'v2'][Math.floor(i / 5 + Math.sin(i * .3)) % 3 | 0],
+    story: i => (i % 16 < 2 ? 'mu' : 'v0'),
+    news: i => (i < 28 ? 'v0' : 'off')
+  };
+  const fmtRows = [...bySel('fmt').querySelectorAll('.mw')].map((el, r) => {
+    const fr = mkRand(11 + r * 7), cls = PATS[el.dataset.pat];
+    return [...Array(64)].map((_, i) => {
+      const b = el.appendChild(document.createElement('i'));
+      const c = cls(i);
+      if (c === 'off') b.style.visibility = 'hidden'; else b.className = c;
+      return { b, v: clamp(.25 + .75 * fr() * (.6 + .4 * Math.sin(i * .4 + r)), .15, 1), d: TL.fmt[1][0] + r * .35 + .2 };
+    });
+  });
+  function rFmt(t, now) {
+    fmtRows.forEach(row => row.forEach((o, i) => {
+      const g = ease(clamp((t - o.d - i * .008) / .6));
+      o.b.style.transform = `scaleY(${(o.v * g * (1 + .07 * Math.sin(now * .005 + i * .9))).toFixed(3)})`;
+    }));
+  }
+
+  /* ---------- 12 · Vergleich: header lines ---------- */
+  const cw = document.getElementById('cmpWave');
+  let cd = 'M1010 29';
+  for (let x = 1014; x <= 1640; x += 4) cd += ` L${x} ${(25 + 7 * Math.sin((x - 1010) * .06) * Math.sin((x - 1010) * .011 + .4)).toFixed(1)}`;
+  cw.setAttribute('d', cd);
+  bySel('cmp').querySelectorAll('.ln-m, .ln-p').forEach(lenOfPath);
+
+  /* ---------- 13 · Ende: the two lines meet ---------- */
   const l4a = document.getElementById('l4a'), l4b = document.getElementById('l4b');
   const dot4 = document.getElementById('dot4'), ring4 = document.getElementById('ring4');
-  function r4(t) {
+  function rEnd(t) {
     const L = 140, M = 1040, R = 1780, Y = 800;
     const p = ease(clamp((t - .9) / 2));
     l4a.setAttribute('d', `M${L} ${Y}H${(L + (M - L) * p).toFixed(1)}`);
@@ -591,21 +1870,86 @@
     ring4.setAttribute('opacity', (k > 0 && k < 1) ? (.55 * (1 - k)).toFixed(3) : 0);
   }
 
-  const renderers = [r1, null, r3, r4];
+  const renderers = { title: rTitle, tech: rTech, mailflow: rMailflow, pod: rPod, prod: rProd, dist: rDist, fmt: rFmt, end: rEnd };
+  renderers.pflow = pfFlow;
+
+  function frame(now) {
+    slides.forEach(s => {
+      const r = renderers[s.dataset.key];
+      if (!s.classList.contains('on') || !r) return;
+      r(reduced ? 60 + (now - s.t0) / 1000 : (now - s.t0) / 1000, now);
+    });
+    requestAnimationFrame(frame);
+  }
   slides[0].t0 = performance.now();
   requestAnimationFrame(() => requestAnimationFrame(() => {
     slides[0].classList.add('on', 'current');
     slides[0].t0 = performance.now();
   }));
-
-  function frame(now) {
-    slides.forEach((s, i) => {
-      if (!s.classList.contains('on') || !renderers[i]) return;
-      renderers[i](reduced ? 60 + (now - s.t0) / 1000 : (now - s.t0) / 1000, now);
-    });
-    requestAnimationFrame(frame);
-  }
   requestAnimationFrame(frame);
+
+  /* =====================================================================
+     Speaker notes: N = overlay on this screen, P = separate presenter window
+     ===================================================================== */
+  const fmtT = v => { const m = Math.floor(v / 60), s = v - m * 60; return `${String(m).padStart(2, '0')}:${s.toFixed(1).padStart(4, '0')}`; };
+  const protocol = key => (TL[key] || []).map(([a, b, txt]) =>
+    `<li>${fmtT(a)}–${b == null ? 'Ende  ' : fmtT(b)} → ${txt}</li>`).join('');
+  const notesHTML = i => slides[i].querySelector('.notes')?.innerHTML || '<p>—</p>';
+  const panel = document.getElementById('notesPanel');
+  function renderNotes() {
+    const s = slides[cur];
+    const head = `Folie ${cur + 1} / ${N} · ${s.getAttribute('aria-label')}`;
+    panel.innerHTML = `<div class="cols"><div><h3>SPRECHER-NOTIZEN · ${head}</h3>${notesHTML(cur)}</div>` +
+      `<div><h3>ANIMATIONSPROTOKOLL</h3><ol>${protocol(s.dataset.key)}</ol></div></div>`;
+    renderPresenter();
+  }
+  function toggleNotes() { panel.classList.toggle('open'); }
+
+  let pw = null;
+  const t0Talk = Date.now();
+  function openPresenter() {
+    if (pw && !pw.closed) { pw.focus(); return; }
+    pw = window.open('', 'sprecheransicht', 'width=980,height=760');
+    if (!pw) return;
+    pw.document.open();
+    pw.document.write(`<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Sprecheransicht</title>
+<style>
+  body{margin:0;background:#0a0a0b;color:#f3f1ec;font:17px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:20px 28px;border-bottom:1px solid rgba(243,241,236,.12)}
+  header b{font-size:26px;font-weight:600} header span{color:rgba(243,241,236,.5);font-family:ui-monospace,Menlo,monospace}
+  main{display:grid;grid-template-columns:3fr 2fr;gap:32px;padding:22px 28px 90px}
+  h3{font-size:13px;letter-spacing:.06em;color:rgba(243,241,236,.45);font-weight:500;margin:0 0 10px}
+  p{margin:0 0 12px;color:rgba(243,241,236,.85)} ol{list-style:none;margin:0;padding:0;font:13px/1.5 ui-monospace,Menlo,monospace;color:rgba(243,241,236,.6)}
+  li{padding:4px 0;border-bottom:1px solid rgba(243,241,236,.08)} .nx{margin-top:22px;color:rgba(243,241,236,.5)}
+  footer{position:fixed;left:0;right:0;bottom:0;display:flex;gap:12px;padding:14px 28px;background:#111113;border-top:1px solid rgba(243,241,236,.12)}
+  button{font:inherit;color:inherit;background:none;border:1px solid rgba(243,241,236,.2);border-radius:8px;padding:8px 18px;cursor:pointer}
+  button:hover{border-color:rgba(243,241,236,.5)}
+</style></head><body><header><b id="t"></b><span id="clk"></span></header><main><section><h3>SPRECHER-NOTIZEN</h3><div id="n"></div><p class="nx" id="nx"></p></section><section><h3>ANIMATIONSPROTOKOLL</h3><ol id="p"></ol></section></main>
+<footer><button id="b">← Zurück</button><button id="f">Weiter →</button><button id="r">↻ Animation neu</button></footer></body></html>`);
+    pw.document.close();
+    pw.document.getElementById('b').onclick = prev;
+    pw.document.getElementById('f').onclick = next;
+    pw.document.getElementById('r').onclick = replay;
+    pw.addEventListener('keydown', onKey);
+    renderPresenter();
+  }
+  function renderPresenter() {
+    if (!pw || pw.closed) return;
+    const d = pw.document, s = slides[cur];
+    d.getElementById('t').textContent = `${cur + 1} / ${N} · ${s.getAttribute('aria-label')}`;
+    d.getElementById('n').innerHTML = notesHTML(cur);
+    d.getElementById('p').innerHTML = protocol(s.dataset.key);
+    d.getElementById('nx').textContent = cur < N - 1 ? 'Nächste Folie: ' + slides[cur + 1].getAttribute('aria-label') : 'Letzte Folie';
+  }
+  setInterval(() => {
+    if (!pw || pw.closed) return;
+    const s = Math.floor((Date.now() - t0Talk) / 1000);
+    pw.document.getElementById('clk').textContent = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+  }, 1000);
+
+  const hint = document.getElementById('hint');
+  setTimeout(() => hint.classList.add('show'), 1200);
+  setTimeout(() => hint.classList.remove('show'), 8000);
 
   /* ---------- liquid-glass lens map for the orb ---------- */
   (function buildLens() {
